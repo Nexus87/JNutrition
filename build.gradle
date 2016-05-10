@@ -1,11 +1,15 @@
 plugins {
-    id 'org.unbroken-dome.test-sets' version '1.1.0'
+    id 'org.unbroken-dome.test-sets' version '1.2.0'
 }
 
 apply plugin: 'idea'
 apply plugin: 'java'
 apply from: "http://dl.bintray.com/content/shemnon/javafx-gradle/8.1.1/javafx.plugin"
 apply plugin: 'org.unbroken-dome.test-sets'
+
+task wrapper(type: Wrapper) {
+    gradleVersion = '2.13'
+}
 
 repositories {
     mavenCentral()
