@@ -1,11 +1,15 @@
 package com.jnutrition.backend;
 
+import java.util.ArrayList;
 import java.util.Collection;
 
-public class DummyIngredientDatabase implements IngredientProvider, IngredientStore{
+public class InMemoryIngredientDatabase implements IngredientProvider, IngredientStore{
+
+    private final ArrayList<Ingredient> ingredients = new ArrayList<>();
+
     @Override
     public Collection<Ingredient> getAllIngredients() {
-        return null;
+        return ingredients;
     }
 
     @Override
@@ -20,7 +24,9 @@ public class DummyIngredientDatabase implements IngredientProvider, IngredientSt
 
     @Override
     public void addIngredient(Ingredient ingredient) throws IllegalArgumentException {
-
+        if(containsIngredient(ingredient.getName()))
+            throw new IllegalArgumentException("Database already contains an ingredient with name " + ingredient.getName());
+        ingredients.add(ingredient);
     }
 
     @Override
@@ -30,7 +36,7 @@ public class DummyIngredientDatabase implements IngredientProvider, IngredientSt
 
     @Override
     public boolean containsIngredient(String name) {
-        return false;
+        return ingredients.stream().anyMatch(i -> i.getName().equals(name));
     }
 
     @Override
