@@ -2,10 +2,11 @@ package com.jnutrition.backend;
 
 import java.util.Collection;
 
-/**
- * Created by nexxuz01 on 22.04.2016.
- */
 public interface IngredientProvider {
+    interface IngredientsChangedHandler{
+        void ingredientsChanged();
+    }
+
     /**
      * Returns all stored ingredients
      * @return
@@ -25,4 +26,8 @@ public interface IngredientProvider {
      * @return A collection with the found ingredients
      */
     Collection<Ingredient> searchIngredients(String searchString);
+
+    void addIngredientsChangedHandler(IngredientsChangedHandler handler);
+
+    void removeIngredientsChangedHandler(IngredientsChangedHandler handler);
 }

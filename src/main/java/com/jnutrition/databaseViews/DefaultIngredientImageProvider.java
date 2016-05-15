@@ -1,10 +1,15 @@
 package com.jnutrition.databaseViews;
 
-import javafx.scene.image.ImageView;
+import javafx.scene.image.Image;
 
 public class DefaultIngredientImageProvider implements IngredientImageProvider{
+    private final Image defaultImage;
+
+    public  DefaultIngredientImageProvider(){
+        defaultImage = new Image(getClass().getResourceAsStream("/defaultImage.png"));
+    }
     @Override
-    public ImageView getDefaultImage() {
-        return new ImageView();
+    public Image getDefaultImage() {
+        return defaultImage;
     }
 }

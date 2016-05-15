@@ -1,11 +1,8 @@
 package com.jnutrition.databaseViews;
 
-import javafx.scene.image.ImageView;
+import javafx.scene.image.Image;
 
-/**
- * Created by Kevin on 08.05.2016.
- */
 public interface IngredientImageProvider {
 
-    ImageView getDefaultImage();
+    Image getDefaultImage();
 }
