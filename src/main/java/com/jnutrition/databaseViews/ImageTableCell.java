@@ -1,16 +1,23 @@
 package com.jnutrition.databaseViews;
 
+import javafx.geometry.Pos;
 import javafx.scene.control.ContentDisplay;
+import javafx.scene.control.Label;
 import javafx.scene.control.TableCell;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.HBox;
 
 public class ImageTableCell<S> extends TableCell<S, String> {
     private final IngredientImageProvider imageProvider;
-    ImageView imageView = new ImageView();
+    private final Label nameLabel = new Label();
+    private final HBox layout = new HBox();
+    private final ImageView imageView = new ImageView();
 
     ImageTableCell(IngredientImageProvider imageProvider) {
         this.imageProvider = imageProvider;
         setContentDisplay(ContentDisplay.GRAPHIC_ONLY);
+        layout.getChildren().addAll(imageView, nameLabel);
+        layout.setAlignment(Pos.CENTER);
     }
 
     @Override
@@ -27,6 +34,8 @@ public class ImageTableCell<S> extends TableCell<S, String> {
         imageView.setImage(imageProvider.getDefaultImage());
         imageView.setFitHeight(50);
         imageView.setFitWidth(50);
-        setGraphic(imageView);
+        nameLabel.setText(item);
+
+        setGraphic(layout);
     }
 }

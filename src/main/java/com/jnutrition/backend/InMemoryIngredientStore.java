@@ -2,8 +2,9 @@ package com.jnutrition.backend;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.stream.Collectors;
 
-public class InMemoryIngredientStore implements IngredientProvider{
+public class InMemoryIngredientStore implements IngredientRepository {
 
     private final ArrayList<Ingredient> ingredients = new ArrayList<>();
     private final ArrayList<IngredientsChangedHandler> eventHandler = new ArrayList<>();
@@ -20,17 +21,19 @@ public class InMemoryIngredientStore implements IngredientProvider{
 
     @Override
     public Collection<Ingredient> searchIngredients(String searchString) {
-        return null;
+        return ingredients.stream()
+                .filter(i -> i.getName().toLowerCase().contains(searchString.toLowerCase()))
+                .collect(Collectors.toList());
     }
 
     @Override
-    public void addIngredientsChangedHandler(IngredientsChangedHandler handler) {
-        eventHandler.add(handler);
+    public void addRepositoryChangeListener(IngredientsChangedHandler listener) {
+        eventHandler.add(listener);
     }
 
     @Override
-    public void removeIngredientsChangedHandler(IngredientsChangedHandler handler) {
-        eventHandler.remove(handler);
+    public void removeRepositoryChangedHandler(IngredientsChangedHandler listener) {
+        eventHandler.remove(listener);
     }
 
 

@@ -1,10 +1,13 @@
 package com.jnutrition.databaseViews;
 
 
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+
+import static org.junit.Assert.*;
 
 public class DefaultIngredientImageProviderTest {
     DefaultIngredientImageProvider provider;
@@ -16,8 +19,8 @@ public class DefaultIngredientImageProviderTest {
 
     @Test
     public void getDefaultImage_ImageNotNull(){
-        ImageView defaultImage = provider.getDefaultImage();
+        Image defaultImage = provider.getDefaultImage();
 
-        Assert.assertNotNull(defaultImage);
+        assertNotNull(defaultImage);
     }
 }

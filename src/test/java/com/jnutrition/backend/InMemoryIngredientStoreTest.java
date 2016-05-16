@@ -10,13 +10,13 @@ public class InMemoryIngredientStoreTest extends IngredientProviderTest {
         database = new InMemoryIngredientStore();
     }
     @Override
-    public IngredientProvider getProvider() {
+    public IngredientRepository getProvider() {
         return database;
     }
 
     @Override
-    public void addIngredient() {
-        database.addIngredient(new Ingredient("Name", 1.0d, 2.0d, 3.0d, 4.0d));
+    public void addIngredient(String name) {
+        database.addIngredient(new Ingredient(name, 1.0d, 2.0d, 3.0d, 4.0d));
     }
 
 

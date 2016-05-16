@@ -3,16 +3,16 @@ package com.jnutrition.databaseViews;
 import com.jnutrition.Main;
 import com.jnutrition.backend.InMemoryIngredientStore;
 import com.jnutrition.backend.Ingredient;
-import com.jnutrition.backend.IngredientProvider;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
+import javafx.scene.input.KeyCode;
 import javafx.stage.Stage;
 import org.junit.Assert;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.testfx.framework.junit.ApplicationTest;
 
@@ -52,7 +52,7 @@ public class IngredientTableTest extends ApplicationTest{
         provider = new InMemoryIngredientStore();
     }
 
-    @Ignore @Test
+    @Test
     public void setData_DataVisibleInTable(){
         List<Ingredient> ingredientList = new LinkedList<>();
         ingredientList.add(new Ingredient("name1", 1.0d, 2.0d, 3.0d, 4.0d));
@@ -68,10 +68,27 @@ public class IngredientTableTest extends ApplicationTest{
             assertTableRow(ingredientList.get(i), i);
     }
 
+    @Test
+    public void filterBoxTest(){
+        TextField filter = lookup("#filterBox").queryFirst();
+        List<Ingredient> ingredientList = new LinkedList<>();
+        ingredientList.add(new Ingredient("name1", 1.0d, 2.0d, 3.0d, 4.0d));
+        ingredientList.add(new Ingredient("name2", 5.0d, 6.0d, 7.0d, 8.0d));
+        ingredientList.add(new Ingredient("name3", 9.0d, 10.0d, 11.0d, 12.0d));
+
+        for( Ingredient i : ingredientList)
+            provider.addIngredient(i);
+
+        controller.init(imageProvider, provider);
+        filter.setText("name3");
+
+        Assert.assertEquals(1, table.getItems().size());
+        assertTableRow(ingredientList.get(2), 0);
+
+    }
     private void assertTableRow(Ingredient ingredient, int row) {
-        Assert.assertEquals(imageProvider.getDefaultImage(), getCellValue("imageColumn", row));
-        Assert.assertEquals("name", getCellValue("nameColumn", row));
-        Assert.assertEquals(ingredient.getName(), getCellValue("kcalColumn", row));
+        Assert.assertEquals(ingredient.getName(), getCellValue("nameColumn", row));
+        Assert.assertEquals(ingredient.getKcal(), getCellValue("kcalColumn", row));
         Assert.assertEquals(ingredient.getProtein(), getCellValue("proteinColumn", row));
         Assert.assertEquals(ingredient.getCarbs(), getCellValue("carbsColumn", row));
         Assert.assertEquals(ingredient.getFat(), getCellValue("fatColumn", row));

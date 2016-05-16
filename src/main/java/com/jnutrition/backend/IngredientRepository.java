@@ -2,7 +2,8 @@ package com.jnutrition.backend;
 
 import java.util.Collection;
 
-public interface IngredientProvider {
+public interface IngredientRepository {
+
     interface IngredientsChangedHandler{
         void ingredientsChanged();
     }
@@ -27,7 +28,11 @@ public interface IngredientProvider {
      */
     Collection<Ingredient> searchIngredients(String searchString);
 
-    void addIngredientsChangedHandler(IngredientsChangedHandler handler);
+    /**
+     *
+     * @param listener
+     */
+    void addRepositoryChangeListener(IngredientsChangedHandler listener);
 
-    void removeIngredientsChangedHandler(IngredientsChangedHandler handler);
+    void removeRepositoryChangedHandler(IngredientsChangedHandler listener);
 }
