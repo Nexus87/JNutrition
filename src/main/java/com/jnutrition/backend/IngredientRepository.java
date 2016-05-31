@@ -29,6 +29,19 @@ public interface IngredientRepository {
     Collection<Ingredient> searchIngredients(String searchString);
 
     /**
+     * Inserts an ingredient into the repository.
+     * Will do nothing, if the repository already contains an ingredient with this name
+     * @param ingredient    Ingredient that should be insert.
+     */
+    void insertIngredient(Ingredient ingredient);
+
+    /**
+     * Inserts an ingredient or overrides an existing one.
+     * @param ingredient    Ingredient to be merged
+     */
+    void mergeIngredient(Ingredient ingredient);
+
+    /**
      *
      * @param listener
      */

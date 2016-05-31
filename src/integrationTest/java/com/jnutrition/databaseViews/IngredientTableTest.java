@@ -1,7 +1,7 @@
 package com.jnutrition.databaseViews;
 
 import com.jnutrition.Main;
-import com.jnutrition.backend.InMemoryIngredientStore;
+import com.jnutrition.backend.InMemoryIngredientRepository;
 import com.jnutrition.backend.Ingredient;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -9,7 +9,6 @@ import javafx.scene.Scene;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
-import javafx.scene.input.KeyCode;
 import javafx.stage.Stage;
 import org.junit.Assert;
 import org.junit.Before;
@@ -23,7 +22,7 @@ import java.util.List;
 
 public class IngredientTableTest extends ApplicationTest{
     IngredientsViewController controller;
-    InMemoryIngredientStore provider;
+    InMemoryIngredientRepository provider;
     IngredientImageProvider imageProvider;
     TableView<Ingredient> table;
 
@@ -49,7 +48,7 @@ public class IngredientTableTest extends ApplicationTest{
     public void setUp(){
         table = lookup("#tableView").queryFirst();
         imageProvider = new DefaultIngredientImageProvider();
-        provider = new InMemoryIngredientStore();
+        provider = new InMemoryIngredientRepository();
     }
 
     @Test
@@ -60,7 +59,7 @@ public class IngredientTableTest extends ApplicationTest{
         ingredientList.add(new Ingredient("name3", 9.0d, 10.0d, 11.0d, 12.0d));
 
         for( Ingredient i : ingredientList)
-            provider.addIngredient(i);
+            provider.insertIngredient(i);
 
         controller.init(imageProvider, provider);
 
@@ -77,7 +76,7 @@ public class IngredientTableTest extends ApplicationTest{
         ingredientList.add(new Ingredient("name3", 9.0d, 10.0d, 11.0d, 12.0d));
 
         for( Ingredient i : ingredientList)
-            provider.addIngredient(i);
+            provider.insertIngredient(i);
 
         controller.init(imageProvider, provider);
         filter.setText("name3");

@@ -2,9 +2,10 @@ package com.jnutrition.backend;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.jar.Attributes;
 import java.util.stream.Collectors;
 
-public class InMemoryIngredientStore implements IngredientRepository {
+public class InMemoryIngredientRepository implements IngredientRepository {
 
     private final ArrayList<Ingredient> ingredients = new ArrayList<>();
     private final ArrayList<IngredientsChangedHandler> eventHandler = new ArrayList<>();
@@ -16,7 +17,10 @@ public class InMemoryIngredientStore implements IngredientRepository {
 
     @Override
     public Ingredient getIngredient(String name) {
-        return null;
+        return ingredients.stream()
+                .filter(i -> i.getName().equals(name))
+                .findFirst()
+                .orElse(null);
     }
 
     @Override
@@ -36,13 +40,19 @@ public class InMemoryIngredientStore implements IngredientRepository {
         eventHandler.remove(listener);
     }
 
-
-    public void addIngredient(Ingredient ingredient) throws IllegalArgumentException {
+    @Override
+    public void insertIngredient(Ingredient ingredient) throws IllegalArgumentException {
         if(containsIngredient(ingredient))
             throw new IllegalArgumentException("Database already contains an ingredient with name " + ingredient.getName());
 
         ingredients.add(ingredient);
         onIngredientsChanged();
+    }
+
+    @Override
+    public void mergeIngredient(Ingredient ingredient) {
+        ingredients.removeIf(i -> i.getName().equals(ingredient.getName()));
+        ingredients.add(ingredient);
     }
 
     public boolean containsIngredient(Ingredient ingredient) {

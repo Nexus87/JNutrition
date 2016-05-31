@@ -1,9 +1,6 @@
 package com.jnutrition.backend;
 
-import javafx.beans.property.DoubleProperty;
-import javafx.beans.property.SimpleDoubleProperty;
-import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.property.StringProperty;
+import javafx.beans.property.*;
 
 /**
  * Created by nexxuz01 on 22.04.2016.
@@ -61,5 +58,30 @@ public class Ingredient {
 
     public DoubleProperty fatProperty() {
         return fat;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if(obj == null || !(obj instanceof  Ingredient))
+            return false;
+        if(super.equals(obj))
+            return  true;
+
+        return equals((Ingredient) obj);
+    }
+
+    private final static double DELTA = 1e-15;
+
+    public boolean equals(Ingredient other){
+        return name.get().equals(other.name.get()) &&
+                Math.abs(kcal.get() - other.kcal.get()) < DELTA &&
+                Math.abs(protein.get() - other.protein.get()) < DELTA &&
+                Math.abs(carbs.get() - other.carbs.get()) < DELTA &&
+                Math.abs(fat.get() - other.fat.get()) < DELTA;
+    }
+
+    @Override
+    public String toString() {
+        return "[" + name.get() + ", " + kcal + ", " + protein + ", " + carbs + ", " + fat + "]";
     }
 }
