@@ -25,7 +25,6 @@ public class TestDatabase {
 	}
 
 	public void Clean() {
-		outputFile.delete();
 	}
 
 	public Collection<String> getItemsNames() {

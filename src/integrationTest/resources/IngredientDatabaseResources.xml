@@ -1,12 +1,16 @@
 <Ingredients>
 	<Ingredient>
-		
-		
-		
 		<Name>Water</Name>
 		<KCal>0.0</KCal>
 		<Protein>0.0</Protein>
 		<Fat>0.0</Fat>
 		<Carbs>0.0</Carbs>
 	</Ingredient>
-	<Ingredient><Name>Apple</Name><KCal>3.0</KCal><Protein>2.0</Protein><Fat>1.0</Fat><Carbs>0.0</Carbs></Ingredient></Ingredients>
+	<Ingredient>
+		<Name>Apple</Name>
+		<KCal>3.0</KCal>
+		<Protein>2.0</Protein>
+		<Fat>1.0</Fat>
+		<Carbs>0.0</Carbs>
+	</Ingredient>
+</Ingredients>

@@ -8,7 +8,7 @@ import org.testfx.api.FxToolkit;
 import static org.testfx.matcher.control.ListViewMatchers.*;
 public class AppRunner {
 
-	private static final String ListName = "ListView";
+	private static final String ListName = "ingredientView";
 
 	public void startApp(String filePath) {
 		try {
@@ -22,7 +22,6 @@ public class AppRunner {
 
 	public void assertShowsTestData(TestDatabase database) {
 		for(String name : database.getItemsNames())
-		FxAssert.verifyThat("#" + ListName, hasListCell(name));
+			FxAssert.verifyThat("#" + ListName, hasListCell(name));
 	}
-
 }
