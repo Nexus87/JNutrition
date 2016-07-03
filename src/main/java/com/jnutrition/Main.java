@@ -19,6 +19,7 @@ public class Main extends Application {
 	private static String filePath;
     @Override
     public void start(Stage primaryStage) throws Exception {
+        String filePath = getParameters().getRaw().get(0);
         XMLIngredientRepository repository = new XMLIngredientRepository(filePath);
     	FXMLLoader loader = new FXMLLoader();
         loader.setLocation(Main.class.getResource("view/MainView.fxml"));
@@ -35,7 +36,7 @@ public class Main extends Application {
 
     public static void main(String[] args)
     {
-    	filePath = args[0];
-        launch();
+        args = new String[]{"/home/kevin/IdeaProjects/JNutrition/src/integrationTest/resources/IngredientDatabaseResources.xml"};
+        launch(args);
     }
 }

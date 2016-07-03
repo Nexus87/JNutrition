@@ -2,63 +2,65 @@ package com.jnutrition.backend;
 
 import javafx.beans.property.*;
 
-/**
- * Created by nexxuz01 on 22.04.2016.
- */
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlType;
+
+@XmlType(propOrder = {"name", "kcal", "protein", "carbs", "fat"})
+@XmlRootElement
 public class Ingredient {
-    private final StringProperty name = new SimpleStringProperty();
-    private final DoubleProperty kcal = new SimpleDoubleProperty();
-    private final DoubleProperty protein = new SimpleDoubleProperty();
-    private final DoubleProperty carbs = new SimpleDoubleProperty();
-    private final DoubleProperty fat = new SimpleDoubleProperty();
 
+    public Ingredient(){}
     public Ingredient(String name, double kcal, double protein, double carbs, double fat) {
-        this.name.set(name);
-        this.kcal.set(kcal) ;
-        this.protein.set(protein);
-        this.carbs.set(carbs);
-        this.fat.set(fat);
-    }
-
-    public double getCarbs() {
-        return carbs.get();
-    }
-
-    public double getProtein() {
-        return protein.get();
-    }
-
-    public double getKcal() {
-        return kcal.get();
-    }
-
-    public String getName() {
-        return name.get();
-    }
-
-    public StringProperty nameProperty() {
-        return name;
-    }
-
-    public DoubleProperty kcalProperty() {
-        return kcal;
-    }
-
-    public DoubleProperty proteinProperty() {
-        return protein;
-    }
-
-    public DoubleProperty carbsProperty() {
-        return carbs;
+        this.name = name;
+        this.kcal = kcal;
+        this.protein = protein;
+        this.carbs = carbs;
+        this.fat = fat;
     }
 
     public double getFat() {
-        return fat.get();
-    }
-
-    public DoubleProperty fatProperty() {
         return fat;
     }
+    @XmlElement
+    public void setFat(double fat) {
+        this.fat = fat;
+    }
+    public String getName() {
+        return name;
+    }
+    @XmlElement
+    public void setName(String name) {
+        this.name = name;
+    }
+    public double getKcal() {
+        return kcal;
+    }
+    @XmlElement
+    public void setKcal(double kcal) {
+        this.kcal = kcal;
+    }
+    public double getProtein() {
+        return protein;
+    }
+    @XmlElement
+    public void setProtein(double protein) {
+        this.protein = protein;
+    }
+    public double getCarbs() {
+        return carbs;
+    }
+    @XmlElement
+    public void setCarbs(double carbs) {
+        this.carbs = carbs;
+    }
+
+    private String name;
+    private double kcal;
+    private double protein;
+    private double carbs;
+    private double fat;
+
 
     @Override
     public boolean equals(Object obj) {
@@ -73,15 +75,16 @@ public class Ingredient {
     private final static double DELTA = 1e-15;
 
     public boolean equals(Ingredient other){
-        return name.get().equals(other.name.get()) &&
-                Math.abs(kcal.get() - other.kcal.get()) < DELTA &&
-                Math.abs(protein.get() - other.protein.get()) < DELTA &&
-                Math.abs(carbs.get() - other.carbs.get()) < DELTA &&
-                Math.abs(fat.get() - other.fat.get()) < DELTA;
+        return name.equals(other.name) &&
+                Math.abs(kcal - other.kcal) < DELTA &&
+                Math.abs(protein - other.protein) < DELTA &&
+                Math.abs(carbs - other.carbs) < DELTA &&
+                Math.abs(fat - other.fat) < DELTA;
     }
 
     @Override
     public String toString() {
-        return "[" + name.get() + ", " + kcal + ", " + protein + ", " + carbs + ", " + fat + "]";
+        return "[" + name + ", " + kcal + ", " + protein + ", " + carbs + ", " + fat + "]";
     }
+
 }
