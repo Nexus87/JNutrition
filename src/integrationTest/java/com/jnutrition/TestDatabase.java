@@ -5,13 +5,16 @@ import java.net.URISyntaxException;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
+import java.util.stream.Collectors;
+
+import com.jnutrition.backend.Ingredient;
 
 public class TestDatabase {
 	
-	private List<String> names;
+	private List<Ingredient> ingredients;
 	private File outputFile;
 	public void setupDatabase() {
-		names = Arrays.asList("Apple", "Water");
+		ingredients = Arrays.asList(new Ingredient("Apple", 3.0, 2.0, 1.0, 0.0), new Ingredient("Water", 0, 0, 0, 0));
 		try {
 			outputFile = new File(ClassLoader.getSystemResource("IngredientDatabaseResources.xml").toURI());
 		} catch (URISyntaxException e) {
@@ -28,7 +31,11 @@ public class TestDatabase {
 	}
 
 	public Collection<String> getItemsNames() {
-		return names;
+		return ingredients.stream().map(i -> i.getName()).collect(Collectors.toList());
+	}
+
+	public Ingredient getItem(int i) {
+		return ingredients.get(i);
 	}
 
 }

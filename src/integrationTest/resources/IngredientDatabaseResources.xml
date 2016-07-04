@@ -3,14 +3,14 @@
 		<name>Water</name>
 		<kcal>0.0</kcal>
 		<protein>0.0</protein>
-		<fat>0.0</fat>
 		<carbs>0.0</carbs>
+		<fat>0.0</fat>
 	</ingredient>
 	<ingredient>
 		<name>Apple</name>
 		<kcal>3.0</kcal>
 		<protein>2.0</protein>
-		<fat>1.0</fat>
-		<carbs>0.0</carbs>
+		<carbs>1.0</carbs>
+		<fat>0.0</fat>
 	</ingredient>
 </ingredients>

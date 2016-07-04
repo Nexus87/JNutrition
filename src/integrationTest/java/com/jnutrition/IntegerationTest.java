@@ -15,12 +15,19 @@ public class IntegerationTest {
 	}
 	
 	@Test
-	public void displayItemsTest(){
+	public void loadFileAndDisplayInList(){
 		database.setupDatabase();
 		appRunner.startApp(database.getFilePath());
 		appRunner.assertShowsTestData(database);
 	}
 	
+	@Test
+	public void clickOnIngredient_ItemShowsInTable(){
+		database.setupDatabase();
+		appRunner.startApp(database.getFilePath());
+		appRunner.doubleClickItem(database.getItem(0));
+		appRunner.assertTableShowsItem(database.getItem(0));
+	}
 	@After
 	public void tearDown(){
 		database.Clean();
