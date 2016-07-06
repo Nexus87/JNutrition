@@ -2,20 +2,14 @@ package com.jnutrition.backend;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
-import javax.xml.bind.Marshaller;
 import javax.xml.bind.Unmarshaller;
 import javax.xml.bind.annotation.XmlElementRef;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlSeeAlso;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
-import java.util.Scanner;
-import java.util.concurrent.SynchronousQueue;
 
 public class XMLIngredientRepository implements IngredientRepository{
 
@@ -36,13 +30,13 @@ public class XMLIngredientRepository implements IngredientRepository{
 
 	private List<Ingredient> ingredients = new ArrayList<>();
 	
-	public XMLIngredientRepository(String filePath) throws FileNotFoundException {
+	public XMLIngredientRepository(InputStream inputStream) throws FileNotFoundException {
 
         Ingredients l = null;
 		try {
 			JAXBContext context = JAXBContext.newInstance(Ingredients.class);
 			Unmarshaller um = context.createUnmarshaller();
-			l = (Ingredients) um.unmarshal(new File(filePath));
+			l = (Ingredients) um.unmarshal(inputStream);
 		} catch (JAXBException e) {
 			e.printStackTrace();
 		}
