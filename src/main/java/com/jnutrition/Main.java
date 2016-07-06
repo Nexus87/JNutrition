@@ -1,7 +1,5 @@
 package com.jnutrition;
 
-import com.jnutrition.backend.InMemoryIngredientRepository;
-import com.jnutrition.backend.Ingredient;
 import com.jnutrition.backend.XMLIngredientRepository;
 import com.jnutrition.databaseViews.IngredientEditorController;
 import com.jnutrition.view.MainViewController;
