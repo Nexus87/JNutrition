@@ -11,9 +11,6 @@ import javafx.stage.Stage;
 
 import java.io.FileInputStream;
 
-/**
- * Created by nexxuz0 on 24.04.2016.
- */
 public class Main extends Application {
 	private static String filePath;
     @Override

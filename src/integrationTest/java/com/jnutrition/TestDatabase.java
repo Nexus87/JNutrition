@@ -31,7 +31,7 @@ public class TestDatabase {
 	}
 
 	public Collection<String> getItemsNames() {
-		return ingredients.stream().map(i -> i.getName()).collect(Collectors.toList());
+		return ingredients.stream().map(Ingredient::getName).collect(Collectors.toList());
 	}
 
 	public Ingredient getItem(int i) {

@@ -30,7 +30,7 @@ public class XMLIngredientRepository implements IngredientRepository{
 
 	private List<Ingredient> ingredients = new ArrayList<>();
 	
-	public XMLIngredientRepository(InputStream inputStream) throws FileNotFoundException {
+	public XMLIngredientRepository(InputStream inputStream) {
 
         Ingredients l = null;
 		try {
@@ -48,38 +48,6 @@ public class XMLIngredientRepository implements IngredientRepository{
 	@Override
 	public Collection<Ingredient> getAllIngredients() {
 		return ingredients;
-	}
-
-	@Override
-	public Ingredient getIngredient(String name) {
-		return null;
-	}
-
-	@Override
-	public Collection<Ingredient> searchIngredients(String searchString) {
-		return null;
-	}
-
-	@Override
-	public void insertIngredient(Ingredient ingredient) {
-		
-	}
-
-	@Override
-	public void mergeIngredient(Ingredient ingredient) {
-		
-	}
-
-	@Override
-	public void addRepositoryChangeListener(IngredientsChangedHandler listener) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void removeRepositoryChangedHandler(IngredientsChangedHandler listener) {
-		// TODO Auto-generated method stub
-		
 	}
 
 }

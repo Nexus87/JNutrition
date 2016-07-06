@@ -1,7 +1,5 @@
 package com.jnutrition.backend;
 
-import javafx.beans.property.*;
-
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
@@ -64,12 +62,10 @@ public class Ingredient {
 
     @Override
     public boolean equals(Object obj) {
-        if(obj == null || !(obj instanceof  Ingredient))
+        if (obj == null || !(obj instanceof Ingredient))
             return false;
-        if(super.equals(obj))
-            return  true;
+        return super.equals(obj) || equals((Ingredient) obj);
 
-        return equals((Ingredient) obj);
     }
 
     private final static double DELTA = 1e-15;

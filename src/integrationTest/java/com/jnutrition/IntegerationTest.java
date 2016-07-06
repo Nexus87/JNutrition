@@ -1,14 +1,14 @@
 package com.jnutrition;
 
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
+import org.testng.annotations.AfterTest;
+import org.testng.annotations.BeforeTest;
+import org.testng.annotations.Test;
 
 public class IntegerationTest {
 	private TestDatabase database;
 	private AppRunner appRunner;
 
-	@Before
+	@BeforeTest
 	public void setup(){
 		database = new TestDatabase();
 		appRunner = new AppRunner();
@@ -28,7 +28,7 @@ public class IntegerationTest {
 		appRunner.doubleClickItem(database.getItem(0));
 		appRunner.assertTableShowsItem(database.getItem(0));
 	}
-	@After
+	@AfterTest
 	public void tearDown(){
 		database.Clean();
 	}

@@ -15,12 +15,16 @@ repositories {
     mavenCentral()
 }
 
+test{
+    useTestNG()
+}
+
 testSets {
 	integrationTest
 }
 
 dependencies {
-    testCompile 'junit:junit:4.11'
+    testCompile 'org.testng:testng:6.9.10'
     testCompile 'org.testfx:testfx-core:4.0.1-alpha'
     testCompile 'org.testfx:testfx-junit:4.0.1-alpha'
 }

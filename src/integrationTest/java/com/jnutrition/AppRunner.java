@@ -1,20 +1,14 @@
 package com.jnutrition;
 
-import java.util.Set;
-import java.util.concurrent.TimeoutException;
-
+import com.jnutrition.backend.Ingredient;
 import org.testfx.api.FxAssert;
 import org.testfx.api.FxRobot;
 import org.testfx.api.FxToolkit;
 
-import com.jnutrition.backend.Ingredient;
+import java.util.concurrent.TimeoutException;
 
-import javafx.collections.ObservableList;
-import javafx.scene.Node;
-import javafx.scene.control.ListView;
-
-import static org.testfx.matcher.control.ListViewMatchers.*;
-import static org.testfx.matcher.control.TableViewMatchers.*;
+import static org.testfx.matcher.control.ListViewMatchers.hasListCell;
+import static org.testfx.matcher.control.TableViewMatchers.hasTableCell;
 public class AppRunner {
 
 	private static final String ListName = "ingredientView";
