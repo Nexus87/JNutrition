@@ -2,17 +2,16 @@ package com.jnutrition.view;
 
 import com.jnutrition.backend.Ingredient;
 import com.jnutrition.backend.IngredientRepository;
-import javafx.beans.property.StringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 
 import java.util.stream.Collectors;
-import java.util.stream.DoubleStream;
 
 public class MainViewController {
 	@FXML
@@ -31,6 +30,14 @@ public class MainViewController {
     private TableColumn<Ingredient, Double> carbsColumn;
     @FXML
     private TableColumn<Ingredient, Double> fatColumn;
+    @FXML
+    private Label kcalLabel;
+    @FXML
+    private Label proteinLabel;
+    @FXML
+    private Label carbsLabel;
+    @FXML
+    private Label fatLabel;
 
 	private final ObservableList<String> ingredientList = FXCollections.observableArrayList();
     private final ObservableList<Ingredient> planList = FXCollections.observableArrayList();
@@ -45,6 +52,11 @@ public class MainViewController {
         proteinColumn.setCellValueFactory(new PropertyValueFactory<>("protein"));
         carbsColumn.setCellValueFactory(new PropertyValueFactory<>("carbs"));
         fatColumn.setCellValueFactory(new PropertyValueFactory<>("fat"));
+
+        kcalLabel.setText("0");
+        proteinLabel.setText("0");
+        carbsLabel.setText("0");
+        fatLabel.setText("0");
     }
 
 	public void setupController(IngredientRepository repository){

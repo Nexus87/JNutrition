@@ -29,6 +29,15 @@ public class IntegerationTest {
 		appRunner.assertTableShowsItem(database.getItem(0));
 	}
 
+    @Test
+    public void startApp_DatasAreAllZero(){
+        database.setupDatabase();
+        appRunner.startApp(database.getFilePath());
+        appRunner.assertDisplayedTotalKCal(0);
+        appRunner.assertDisplayedTotalProtein(0);
+        appRunner.assertDisplayedTotalCarbs(0);
+        appRunner.assertDisplayedTotalFat(0);
+    }
 	@AfterTest
 	public void tearDown(){
 		database.Clean();
