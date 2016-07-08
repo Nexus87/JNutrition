@@ -12,11 +12,9 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 
-import java.util.stream.Collectors;
-
 public class MainViewController {
 	@FXML
-	private ListView<String> ingredientView;
+	private ListView<Ingredient> ingredientView;
 
 	@FXML
     private TableView<Ingredient> planTable;
@@ -40,7 +38,7 @@ public class MainViewController {
     @FXML
     private Label fatLabel;
 
-	private final ObservableList<String> ingredientList = FXCollections.observableArrayList();
+	private final ObservableList<Ingredient> ingredientList = FXCollections.observableArrayList();
     private IngredientRepository repository;
     private final PlanModel model = new PlanModel();
 
@@ -48,6 +46,7 @@ public class MainViewController {
 		ingredientView.setItems(ingredientList);
         planTable.setItems(model.getReadOnlyList());
 
+        ingredientView.setCellFactory(p -> new IngredientCell());
         nameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
         kcalColumn.setCellValueFactory(new PropertyValueFactory<>("kcal"));
         proteinColumn.setCellValueFactory(new PropertyValueFactory<>("protein"));
@@ -62,9 +61,7 @@ public class MainViewController {
 
 	public void setupController(IngredientRepository repository){
         this.repository = repository;
-		ingredientList.addAll(repository.getAllIngredients().stream()
-				.map(Ingredient::getName)
-				.collect(Collectors.toList()));
+		ingredientList.addAll(repository.getAllIngredients());
 
         ingredientView.setOnMouseClicked(e -> {
             if(e.getClickCount() != 2)
@@ -75,8 +72,7 @@ public class MainViewController {
 	}
 
     private void listDoubleClickHandler(){
-        String name = ingredientView.getSelectionModel().getSelectedItem();
-        Ingredient i = repository.getIngredientByName(name);
+        Ingredient i = ingredientView.getSelectionModel().getSelectedItem();
 
         model.addIngredient(i);
 

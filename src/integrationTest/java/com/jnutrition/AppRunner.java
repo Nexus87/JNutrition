@@ -1,12 +1,10 @@
 package com.jnutrition;
 
 import com.jnutrition.backend.Ingredient;
-import javafx.scene.Node;
 import javafx.scene.control.Label;
 import org.testfx.api.FxAssert;
 import org.testfx.api.FxRobot;
 import org.testfx.api.FxToolkit;
-import org.testng.Assert;
 
 import java.util.concurrent.TimeoutException;
 
@@ -23,7 +21,7 @@ class AppRunner {
     private static final String CarbsLableName = "carbsLabel";
     private static final String FatLableName = "fatLabel";
 
-    public void startApp(String filePath) {
+    void startApp(String filePath) {
 		try {
 			FxToolkit.registerPrimaryStage();
 			FxToolkit.setupApplication(Main.class, filePath);
@@ -33,17 +31,17 @@ class AppRunner {
 		}
 	}
 
-	public void assertShowsTestData(TestDatabase database) {
-		for(String name : database.getItemsNames())
+	void assertShowsTestData(TestDatabase database) {
+		for(Ingredient name : database.getItems())
 			FxAssert.verifyThat("#" + ListName, hasListCell(name));
 	}
 
-	public void doubleClickItem(Ingredient i) {
+	void doubleClickItem(Ingredient i) {
 		FxRobot robot = new FxRobot();
 		robot.doubleClickOn(i.getName());
 	}
 
-	public void assertTableShowsItem(Ingredient item) {
+	void assertTableShowsItem(Ingredient item) {
 		FxAssert.verifyThat("#" + TableName, hasTableCell(item.getName()));
 		FxAssert.verifyThat("#" + TableName, hasTableCell(item.getProtein()));
 		FxAssert.verifyThat("#" + TableName, hasTableCell(item.getCarbs()));
@@ -51,7 +49,7 @@ class AppRunner {
 		FxAssert.verifyThat("#" + TableName, hasTableCell(item.getKcal()));
 	}
 
-    public void assertDisplayedTotalKCal(double totalKCal) {
+    void assertDisplayedTotalKCal(double totalKCal) {
         assertLabelShowsNumber(KCalLableName, totalKCal);
     }
 
@@ -65,15 +63,15 @@ class AppRunner {
         assertEquals(number, expectedNumber, 1e-10);
     }
 
-    public void assertDisplayedTotalProtein(double totalProtein) {
+    void assertDisplayedTotalProtein(double totalProtein) {
         assertLabelShowsNumber(ProteinLableName, totalProtein);
     }
 
-    public void assertDisplayedTotalCarbs(double totalCarbs) {
+    void assertDisplayedTotalCarbs(double totalCarbs) {
         assertLabelShowsNumber(CarbsLableName, totalCarbs);
     }
 
-    public void assertDisplayedTotalFat(double totalFat) {
+    void assertDisplayedTotalFat(double totalFat) {
         assertLabelShowsNumber(FatLableName, totalFat);
     }
 }
