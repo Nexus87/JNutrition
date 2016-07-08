@@ -32,7 +32,6 @@ public class Main extends Application {
 
     public static void main(String[] args)
     {
-        args = new String[]{"/home/kevin/IdeaProjects/JNutrition/src/integrationTest/resources/IngredientDatabaseResources.xml"};
         launch(args);
     }
 }

@@ -50,4 +50,9 @@ public class XMLIngredientRepository implements IngredientRepository{
 		return ingredients;
 	}
 
+	@Override
+	public Ingredient getIngredientByName(String name) {
+		return ingredients.stream().filter(ingredient -> ingredient.getName().equals(name)).findFirst().orElse(null);
+	}
+
 }

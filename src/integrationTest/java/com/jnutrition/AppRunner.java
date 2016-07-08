@@ -35,6 +35,10 @@ public class AppRunner {
 	}
 
 	public void assertTableShowsItem(Ingredient item) {
-		FxAssert.verifyThat("#" + TableName, hasTableCell(item));
+		FxAssert.verifyThat("#" + TableName, hasTableCell(item.getName()));
+		FxAssert.verifyThat("#" + TableName, hasTableCell(item.getProtein()));
+		FxAssert.verifyThat("#" + TableName, hasTableCell(item.getCarbs()));
+		FxAssert.verifyThat("#" + TableName, hasTableCell(item.getFat()));
+		FxAssert.verifyThat("#" + TableName, hasTableCell(item.getKcal()));
 	}
 }

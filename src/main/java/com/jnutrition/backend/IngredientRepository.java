@@ -5,4 +5,6 @@ import java.util.Collection;
 public interface IngredientRepository {
 
     Collection<Ingredient> getAllIngredients();
+
+    Ingredient getIngredientByName(String name);
 }

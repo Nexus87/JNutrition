@@ -28,6 +28,7 @@ public class IntegerationTest {
 		appRunner.doubleClickItem(database.getItem(0));
 		appRunner.assertTableShowsItem(database.getItem(0));
 	}
+
 	@AfterTest
 	public void tearDown(){
 		database.Clean();
