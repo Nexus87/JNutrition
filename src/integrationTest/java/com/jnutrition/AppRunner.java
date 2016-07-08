@@ -74,4 +74,11 @@ class AppRunner {
     void assertDisplayedTotalFat(double totalFat) {
         assertLabelShowsNumber(FatLableName, totalFat);
     }
+
+    public void assertDataDisplayed(Ingredient item) {
+        assertDisplayedTotalCarbs(item.getCarbs());
+        assertDisplayedTotalFat(item.getFat());
+        assertDisplayedTotalKCal(item.getKcal());
+        assertDisplayedTotalProtein(item.getProtein());
+    }
 }

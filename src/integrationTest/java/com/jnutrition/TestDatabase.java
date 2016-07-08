@@ -14,7 +14,11 @@ class TestDatabase {
 	private List<Ingredient> ingredients;
 	private File outputFile;
 	void setupDatabase() {
-		ingredients = Arrays.asList(new Ingredient("Apple", 3.0, 2.0, 1.0, 0.0), new Ingredient("Water", 0, 0, 0, 0));
+		ingredients = Arrays.asList(
+				new Ingredient("Apple", 3.0, 2.0, 1.0, 0.0),
+				new Ingredient("Water", 1, 1, 1, 0),
+				new Ingredient("Egg", 3.3, 2.2, 1.12, 3.0)
+		);
 		try {
 			outputFile = new File(ClassLoader.getSystemResource("IngredientDatabaseResources.xml").toURI());
 		} catch (URISyntaxException e) {

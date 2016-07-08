@@ -30,13 +30,22 @@ public class IntegerationTest {
 	}
 
     @Test
-    public void startApp_DatasAreAllZero(){
+    public void startApp_DataAreAllZero(){
         database.setupDatabase();
         appRunner.startApp(database.getFilePath());
         appRunner.assertDisplayedTotalKCal(0);
         appRunner.assertDisplayedTotalProtein(0);
         appRunner.assertDisplayedTotalCarbs(0);
         appRunner.assertDisplayedTotalFat(0);
+    }
+
+    @Test
+    public void addOneIngredient_IngredientsDataAreShown(){
+        database.setupDatabase();
+        appRunner.startApp(database.getFilePath());
+        appRunner.doubleClickItem(database.getItem(1));
+
+        appRunner.assertDataDisplayed(database.getItem(1));
     }
 	@AfterTest
 	public void tearDown(){
