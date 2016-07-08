@@ -2,6 +2,7 @@ package com.jnutrition.view;
 
 import com.jnutrition.backend.Ingredient;
 import com.jnutrition.backend.IngredientRepository;
+import com.jnutrition.backend.PlanModel;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -40,12 +41,12 @@ public class MainViewController {
     private Label fatLabel;
 
 	private final ObservableList<String> ingredientList = FXCollections.observableArrayList();
-    private final ObservableList<Ingredient> planList = FXCollections.observableArrayList();
     private IngredientRepository repository;
+    private final PlanModel model = new PlanModel();
 
     public void initialize(){
 		ingredientView.setItems(ingredientList);
-        planTable.setItems(planList);
+        planTable.setItems(model.getReadOnlyList());
 
         nameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
         kcalColumn.setCellValueFactory(new PropertyValueFactory<>("kcal"));
@@ -77,7 +78,7 @@ public class MainViewController {
         String name = ingredientView.getSelectionModel().getSelectedItem();
         Ingredient i = repository.getIngredientByName(name);
 
-        planList.add(i);
+        model.addIngredient(i);
 
     }
 }
