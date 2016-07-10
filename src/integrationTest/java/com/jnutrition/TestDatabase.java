@@ -1,6 +1,7 @@
 package com.jnutrition;
 
 import com.jnutrition.backend.Ingredient;
+import com.jnutrition.backend.Unit;
 
 import java.io.File;
 import java.net.URISyntaxException;
@@ -46,4 +47,11 @@ class TestDatabase {
 		return ingredients.get(i);
 	}
 
+	public Unit defaultUnit() {
+		return null;
+	}
+
+    public Unit Unit() {
+        return null;
+    }
 }

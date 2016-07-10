@@ -1,6 +1,7 @@
 package com.jnutrition;
 
 import com.jnutrition.backend.Ingredient;
+import com.jnutrition.backend.Unit;
 import javafx.scene.control.Label;
 import org.testfx.api.FxAssert;
 import org.testfx.api.FxRobot;
@@ -21,10 +22,10 @@ class AppRunner {
     private static final String CarbsLableName = "carbsLabel";
     private static final String FatLableName = "fatLabel";
 
-    void startApp(String filePath) {
+    void startApp(TestDatabase database) {
 		try {
 			FxToolkit.registerPrimaryStage();
-			FxToolkit.setupApplication(Main.class, filePath);
+			FxToolkit.setupApplication(Main.class, database.getFilePath());
 		} catch (TimeoutException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -80,5 +81,33 @@ class AppRunner {
         assertDisplayedTotalFat(item.getFat());
         assertDisplayedTotalKCal(item.getKcal());
         assertDisplayedTotalProtein(item.getProtein());
+    }
+
+    public void setUnit(double amount, Unit unit) {
+
+    }
+
+    public void assertDataDisplayedWithUnit(double amount, Unit unit) {
+        FxAssert.verifyThat("#" + TableName, hasTableCell(new UnitMatcher(amount, unit)));
+    }
+
+    private static class UnitMatcher{
+        private Unit unit;
+        private Double amount;
+
+        private UnitMatcher(Double amount, Unit unit) {
+            this.unit = unit;
+            this.amount = amount;
+        }
+
+        @Override
+        public boolean equals(Object o) {
+            if(!(o instanceof String))
+                return false;
+
+            String text = (String) o;
+
+            return text.contains(unit.toString()) && text.contains(amount.toString());
+        }
     }
 }

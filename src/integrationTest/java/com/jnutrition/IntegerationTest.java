@@ -12,27 +12,26 @@ public class IntegerationTest {
 	public void setup(){
 		database = new TestDatabase();
 		appRunner = new AppRunner();
+        database.setupDatabase();
 	}
 	
 	@Test
 	public void loadFileAndDisplayInList(){
-		database.setupDatabase();
-		appRunner.startApp(database.getFilePath());
+		appRunner.startApp(database);
 		appRunner.assertShowsTestData(database);
 	}
 	
 	@Test
 	public void clickOnIngredient_ItemShowsInTable(){
-		database.setupDatabase();
-		appRunner.startApp(database.getFilePath());
+		appRunner.startApp(database);
 		appRunner.doubleClickItem(database.getItem(0));
+        appRunner.setUnit(100, database.defaultUnit());
 		appRunner.assertTableShowsItem(database.getItem(0));
 	}
 
     @Test
     public void startApp_DataAreAllZero(){
-        database.setupDatabase();
-        appRunner.startApp(database.getFilePath());
+        appRunner.startApp(database);
         appRunner.assertDisplayedTotalKCal(0);
         appRunner.assertDisplayedTotalProtein(0);
         appRunner.assertDisplayedTotalCarbs(0);
@@ -41,11 +40,18 @@ public class IntegerationTest {
 
     @Test
     public void addOneIngredient_IngredientsDataAreShown(){
-        database.setupDatabase();
-        appRunner.startApp(database.getFilePath());
+        appRunner.startApp(database);
         appRunner.doubleClickItem(database.getItem(1));
-
+        appRunner.setUnit(100, database.defaultUnit());
         appRunner.assertDataDisplayed(database.getItem(1));
+    }
+
+	@Test
+    public void addOneIngredientWithUnits(){
+        appRunner.startApp(database);
+        appRunner.doubleClickItem(database.getItem(0));
+        appRunner.setUnit(1, database.Unit());
+        appRunner.assertDataDisplayedWithUnit(1, database.Unit());
     }
 	@AfterTest
 	public void tearDown(){
