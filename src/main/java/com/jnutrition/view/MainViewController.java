@@ -53,10 +53,12 @@ public class MainViewController {
         carbsColumn.setCellValueFactory(new PropertyValueFactory<>("carbs"));
         fatColumn.setCellValueFactory(new PropertyValueFactory<>("fat"));
 
-        kcalLabel.setText("0");
-        proteinLabel.setText("0");
-        carbsLabel.setText("0");
-        fatLabel.setText("0");
+        kcalLabel.textProperty().bind(model.kcalProperty().asString());
+        proteinLabel.textProperty().bind(model.proteinProperty().asString());
+        carbsLabel.textProperty().bind(model.carbsProperty().asString());
+        fatLabel.textProperty().bind(model.fatProperty().asString());
+
+
     }
 
 	public void setupController(IngredientRepository repository){
