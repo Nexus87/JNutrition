@@ -1,9 +1,9 @@
 package com.jnutrition.backend;
 
 public class PlanItem {
-    Ingredient ingredient;
-    double amount;
-    Unit unit;
+    private final Ingredient ingredient;
+    private final double amount;
+    private final Unit unit;
 
     public Ingredient getIngredient() {
         return ingredient;
@@ -17,26 +17,26 @@ public class PlanItem {
         return unit;
     }
 
-    public PlanItem(Ingredient ingredient, double amount, Unit unit) {
+    PlanItem(Ingredient ingredient, double amount, Unit unit) {
 
         this.ingredient = ingredient;
         this.amount = amount;
         this.unit = unit;
     }
 
-    public double getFat() {
+    double getFat() {
         return ingredient.getFat();
     }
     public String getName() {
         return ingredient.getName();
     }
-    public double getKcal() {
+    double getKcal() {
         return ingredient.getKcal();
     }
-    public double getProtein() {
+    double getProtein() {
         return ingredient.getProtein();
     }
-    public double getCarbs() {
+    double getCarbs() {
         return ingredient.getCarbs();
     }
 }

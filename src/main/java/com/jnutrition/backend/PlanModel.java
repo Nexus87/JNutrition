@@ -25,10 +25,10 @@ public class PlanModel {
         return fat;
     }
 
-    private DoubleProperty kcal = new SimpleDoubleProperty();
-    private DoubleProperty protein = new SimpleDoubleProperty();
-    private DoubleProperty carbs = new SimpleDoubleProperty();
-    private DoubleProperty fat = new SimpleDoubleProperty();
+    private final DoubleProperty kcal = new SimpleDoubleProperty();
+    private final DoubleProperty protein = new SimpleDoubleProperty();
+    private final DoubleProperty carbs = new SimpleDoubleProperty();
+    private final DoubleProperty fat = new SimpleDoubleProperty();
 
     public void addIngredient(double amount, Unit unit, Ingredient ingredient) {
         PlanItem item = new PlanItem(ingredient, amount, unit);
@@ -48,19 +48,19 @@ public class PlanModel {
         return readOnly;
     }
 
-    public double getKcal() {
+    double getKcal() {
         return kcal.get();
     }
 
-    public double getProtein() {
+    double getProtein() {
         return protein.get();
     }
 
-    public double getCarbs() {
+    double getCarbs() {
         return carbs.get();
     }
 
-    public double getFat() {
+    double getFat() {
         return fat.get();
     }
 }
