@@ -1,9 +1,7 @@
 package com.jnutrition.view;
 
-import com.jnutrition.backend.Ingredient;
-import com.jnutrition.backend.IngredientRepository;
-import com.jnutrition.backend.PlanModel;
-import com.jnutrition.backend.Unit;
+import com.jnutrition.backend.*;
+import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -19,18 +17,20 @@ public class MainViewController {
 	private ListView<Ingredient> ingredientView;
 
 	@FXML
-    private TableView<Ingredient> planTable;
+    private TableView<PlanItem> planTable;
 
     @FXML
-    private TableColumn<Ingredient, String> nameColumn;
+    private TableColumn<PlanItem, String> nameColumn;
     @FXML
-    private TableColumn<Ingredient, Double> kcalColumn;
+    private TableColumn<PlanItem, Double> kcalColumn;
     @FXML
-    private TableColumn<Ingredient, Double> proteinColumn;
+    private TableColumn<PlanItem, Double> proteinColumn;
     @FXML
-    private TableColumn<Ingredient, Double> carbsColumn;
+    private TableColumn<PlanItem, Double> carbsColumn;
     @FXML
-    private TableColumn<Ingredient, Double> fatColumn;
+    private TableColumn<PlanItem, Double> fatColumn;
+    @FXML
+    private TableColumn<PlanItem, String> amountColumn;
     @FXML
     private Label kcalLabel;
     @FXML
@@ -54,6 +54,10 @@ public class MainViewController {
         proteinColumn.setCellValueFactory(new PropertyValueFactory<>("protein"));
         carbsColumn.setCellValueFactory(new PropertyValueFactory<>("carbs"));
         fatColumn.setCellValueFactory(new PropertyValueFactory<>("fat"));
+        amountColumn.setCellValueFactory(param -> {
+            PlanItem item = param.getValue();
+            return new SimpleStringProperty(item.getAmount() + " " + item.getUnit());
+        });
 
         kcalLabel.textProperty().bind(model.kcalProperty().asString());
         proteinLabel.textProperty().bind(model.proteinProperty().asString());
@@ -78,8 +82,12 @@ public class MainViewController {
     private void listDoubleClickHandler(){
         Ingredient i = ingredientView.getSelectionModel().getSelectedItem();
 
-        Optional<Pair<Double, Unit>> result = showUnitDialog();
-        model.addIngredient(i);
+        Pair<Double, Unit> result = showUnitDialog().orElse(null);
+
+        if(result == null)
+            return;
+
+        model.addIngredient(result.getKey(), result.getValue(), i);
 
     }
 

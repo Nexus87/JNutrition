@@ -96,7 +96,7 @@ class AppRunner {
     }
 
     public void assertDataDisplayedWithUnit(double amount, Unit unit) {
-        FxAssert.verifyThat("#" + TableName, hasTableCell(new UnitMatcher(amount, unit)));
+        FxAssert.verifyThat("#" + TableName, hasTableCell(amount + " " + unit));
     }
 
     private static class UnitMatcher{

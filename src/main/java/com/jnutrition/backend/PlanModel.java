@@ -6,8 +6,8 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 public class PlanModel {
-    private final ObservableList<Ingredient> ingredients = FXCollections.observableArrayList();
-    private final ObservableList<Ingredient> readOnly = FXCollections.unmodifiableObservableList(ingredients);
+    private final ObservableList<PlanItem> ingredients = FXCollections.observableArrayList();
+    private final ObservableList<PlanItem> readOnly = FXCollections.unmodifiableObservableList(ingredients);
 
     public DoubleProperty kcalProperty() {
         return kcal;
@@ -30,20 +30,21 @@ public class PlanModel {
     private DoubleProperty carbs = new SimpleDoubleProperty();
     private DoubleProperty fat = new SimpleDoubleProperty();
 
-    public void addIngredient(Ingredient ingredient) {
+    public void addIngredient(double amount, Unit unit, Ingredient ingredient) {
+        PlanItem item = new PlanItem(ingredient, amount, unit);
         double currentKcal = getKcal();
         double currentProtein = getProtein();
         double currentCarbs = getCarbs();
         double currentFat = getFat();
 
-        kcal.set(ingredient.getKcal() + currentKcal);
-        protein.set(ingredient.getProtein() + currentProtein);
-        carbs.set(ingredient.getCarbs() + currentCarbs);
-        fat.set(ingredient.getFat() + currentFat);
-        ingredients.add(ingredient);
+        kcal.set(item.getKcal() + currentKcal);
+        protein.set(item.getProtein() + currentProtein);
+        carbs.set(item.getCarbs() + currentCarbs);
+        fat.set(item.getFat() + currentFat);
+        ingredients.add(item);
     }
 
-    public ObservableList<Ingredient> getReadOnlyList() {
+    public ObservableList<PlanItem> getReadOnlyList() {
         return readOnly;
     }
 
