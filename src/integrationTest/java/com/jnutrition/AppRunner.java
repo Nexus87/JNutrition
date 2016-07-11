@@ -109,6 +109,13 @@ class AppRunner {
         FxAssert.verifyThat("#" + TableName, hasItems(0));
     }
 
+    public void assertTotalDataDisplayed(Ingredient item, double amount, Unit unit) {
+        assertDisplayedTotalFat(amount * unit.inGram() * item.getFat());
+        assertDisplayedTotalCarbs(amount * unit.inGram() * item.getCarbs());
+        assertDisplayedTotalProtein(amount * unit.inGram() * item.getProtein());
+        assertDisplayedTotalKCal(amount * unit.inGram() * item.getProtein());
+    }
+
     private static class UnitMatcher{
         private Unit unit;
         private Double amount;

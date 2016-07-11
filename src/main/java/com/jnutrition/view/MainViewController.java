@@ -114,7 +114,7 @@ public class MainViewController {
         unitDialog.setResultConverter( button ->{
             if(button == ButtonType.CANCEL)
                 return null;
-            return new Pair<Double, Unit>(Double.parseDouble(amountField.getText()), new Unit(unitField.getText()));
+            return new Pair<Double, Unit>(Double.parseDouble(amountField.getText()), new Unit(unitField.getText(), 1));
         });
 
         return unitDialog.showAndWait();
