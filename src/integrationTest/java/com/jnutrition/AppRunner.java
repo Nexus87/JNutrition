@@ -11,6 +11,7 @@ import org.testfx.api.FxToolkit;
 import java.util.concurrent.TimeoutException;
 
 import static org.testfx.matcher.control.ListViewMatchers.hasListCell;
+import static org.testfx.matcher.control.TableViewMatchers.hasItems;
 import static org.testfx.matcher.control.TableViewMatchers.hasTableCell;
 import static org.testng.Assert.assertEquals;
 
@@ -97,6 +98,15 @@ class AppRunner {
 
     public void assertDataDisplayedWithUnit(double amount, Unit unit) {
         FxAssert.verifyThat("#" + TableName, hasTableCell(amount + " " + unit));
+    }
+
+    public void cancelUnitDialog() {
+        FxRobot robot = new FxRobot();
+        robot.clickOn(ButtonType.CANCEL.getText());
+    }
+
+    public void assertTableIsEmpty() {
+        FxAssert.verifyThat("#" + TableName, hasItems(0));
     }
 
     private static class UnitMatcher{

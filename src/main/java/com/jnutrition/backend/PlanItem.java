@@ -24,19 +24,19 @@ public class PlanItem {
         this.unit = unit;
     }
 
-    double getFat() {
+    public double getFat() {
         return ingredient.getFat();
     }
     public String getName() {
         return ingredient.getName();
     }
-    double getKcal() {
+    public double getKcal() {
         return ingredient.getKcal();
     }
-    double getProtein() {
+    public double getProtein() {
         return ingredient.getProtein();
     }
-    double getCarbs() {
+    public double getCarbs() {
         return ingredient.getCarbs();
     }
 }

@@ -53,6 +53,14 @@ public class IntegerationTest {
         appRunner.setUnit(1, database.Unit());
         appRunner.assertDataDisplayedWithUnit(1, database.Unit());
     }
+
+    @Test
+    public void cancelUnitDialog_NothingIsAddedToTable(){
+        appRunner.startApp(database);
+        appRunner.doubleClickItem(database.getItem(0));
+        appRunner.cancelUnitDialog();
+        appRunner.assertTableIsEmpty();
+    }
 	@AfterTest
 	public void tearDown(){
 		database.Clean();
