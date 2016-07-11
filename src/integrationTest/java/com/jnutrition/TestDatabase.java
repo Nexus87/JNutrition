@@ -48,10 +48,10 @@ class TestDatabase {
 	}
 
 	public Unit defaultUnit() {
-		return null;
+		return new Unit("g");
 	}
 
     public Unit Unit() {
-        return null;
+        return new Unit("Unit");
     }
 }

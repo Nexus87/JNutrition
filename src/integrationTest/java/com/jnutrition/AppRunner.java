@@ -2,6 +2,7 @@ package com.jnutrition;
 
 import com.jnutrition.backend.Ingredient;
 import com.jnutrition.backend.Unit;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import org.testfx.api.FxAssert;
 import org.testfx.api.FxRobot;
@@ -21,6 +22,8 @@ class AppRunner {
     private static final String ProteinLableName = "proteinLabel";
     private static final String CarbsLableName = "carbsLabel";
     private static final String FatLableName = "fatLabel";
+    private static final String AmountFieldName = "amountField";
+    private static final String UnitFieldName = "unitField";
 
     void startApp(TestDatabase database) {
 		try {
@@ -84,7 +87,12 @@ class AppRunner {
     }
 
     public void setUnit(double amount, Unit unit) {
-
+        FxRobot robot = new FxRobot();
+        robot.clickOn("#" + AmountFieldName);
+        robot.write(Double.toString(amount));
+        robot.clickOn("#" + UnitFieldName);
+        robot.write(unit.toString());
+        robot.clickOn(ButtonType.OK.getText());
     }
 
     public void assertDataDisplayedWithUnit(double amount, Unit unit) {

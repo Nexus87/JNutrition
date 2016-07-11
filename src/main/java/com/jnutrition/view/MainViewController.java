@@ -3,14 +3,16 @@ package com.jnutrition.view;
 import com.jnutrition.backend.Ingredient;
 import com.jnutrition.backend.IngredientRepository;
 import com.jnutrition.backend.PlanModel;
+import com.jnutrition.backend.Unit;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.scene.control.Label;
-import javafx.scene.control.ListView;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.GridPane;
+import javafx.util.Pair;
+
+import java.util.Optional;
 
 public class MainViewController {
 	@FXML
@@ -76,7 +78,37 @@ public class MainViewController {
     private void listDoubleClickHandler(){
         Ingredient i = ingredientView.getSelectionModel().getSelectedItem();
 
+        Optional<Pair<Double, Unit>> result = showUnitDialog();
         model.addIngredient(i);
 
+    }
+
+    private Optional<Pair<Double, Unit>> showUnitDialog() {
+        Dialog<Pair<Double, Unit>> unitDialog = new Dialog<>();
+        unitDialog.setTitle("Chose amount and unit");
+
+        unitDialog.getDialogPane().getButtonTypes().addAll(ButtonType.OK, ButtonType.CANCEL);
+        GridPane gridPane = new GridPane();
+
+        TextField amountField = new TextField();
+        TextField unitField = new TextField();
+
+        amountField.setId("amountField");
+        unitField.setId("unitField");
+
+        gridPane.add(new Label("Amount:"), 0, 0);
+        gridPane.add(amountField, 1, 0);
+        gridPane.add(new Label("Unit"), 0, 1);
+        gridPane.add(unitField, 1, 1);
+
+        unitDialog.getDialogPane().setContent(gridPane);
+
+        unitDialog.setResultConverter( button ->{
+            if(button == ButtonType.CANCEL)
+                return null;
+            return new Pair<Double, Unit>(Double.parseDouble(amountField.getText()), new Unit(unitField.getText()));
+        });
+
+        return unitDialog.showAndWait();
     }
 }
