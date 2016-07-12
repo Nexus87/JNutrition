@@ -107,17 +107,17 @@ public class MainViewController {
         unitField.setId("unitField");
         unitField.setItems(unitRepository.getUnitForIngredient(ingredient));
 
+        unitField.setValue(Unit.GRAM);
         gridPane.add(new Label("Amount:"), 0, 0);
         gridPane.add(amountField, 1, 0);
-        gridPane.add(new Label("Unit"), 0, 1);
-        gridPane.add(unitField, 1, 1);
+        gridPane.add(unitField, 2, 0);
 
         unitDialog.getDialogPane().setContent(gridPane);
 
         unitDialog.setResultConverter( button ->{
             if(button == ButtonType.CANCEL)
                 return null;
-            return new Pair<Double, Unit>(Double.parseDouble(amountField.getText()), unitField.getValue());
+            return new Pair<>(Double.parseDouble(amountField.getText()), unitField.getValue());
         });
 
         return unitDialog.showAndWait();
