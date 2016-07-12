@@ -39,8 +39,8 @@ public class PlanModel {
 
         kcal.set(item.getKcal() + currentKcal);
         protein.set(item.getProtein() + currentProtein);
-        carbs.set(item.getCarbs() + currentCarbs);
-        fat.set(item.getFat() + currentFat);
+        carbs.set(item.getCarbs()+ currentCarbs);
+        fat.set(item.getFat()+ currentFat);
         ingredients.add(item);
     }
 

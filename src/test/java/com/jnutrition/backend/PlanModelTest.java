@@ -14,7 +14,7 @@ public class PlanModelTest {
     @DataProvider
     public Object[][] addIngredientTestData(){
         return new Object[][]{
-                {new Ingredient("Apple", 1, 2, 3, 4), 100, new Unit("g")}
+                {new Ingredient("Apple", 1, 2, 3, 4), 100, new Unit("g", 1.0)}
         };
     }
 
@@ -43,7 +43,7 @@ public class PlanModelTest {
     {
         PlanModel model = createModel();
         double defaultAmount = 100;
-        Unit defaultUnit = new Unit("g");
+        Unit defaultUnit = Unit.GRAM;
 
         for(Ingredient i : ingredients)
             model.addIngredient(defaultAmount, defaultUnit, i);
@@ -52,6 +52,28 @@ public class PlanModelTest {
         assertEquals(totalProtein, model.getProtein(), 1e-12);
         assertEquals(totalCarbs, model.getCarbs(), 1e-12);
         assertEquals(totalFat, model.getFat(), 1e-12);
+    }
+
+    @DataProvider
+    public Object[][] unitDataTestData(){
+        return new Object[][]{
+                { 1, 2, 3, 4, new Ingredient("Apple", 2, 4, 6, 8), new Unit("Unit", 50)}
+        };
+    }
+
+    @Test(dataProvider = "unitDataTestData")
+    public void addIngredient_WithDifferentUnitThanGramm_DataAreDifferentToDefaultUnit(
+            double expectedKcal, double expectedProtein, double expectedCarbs, double expectedFat,
+            Ingredient ingredient, Unit unit
+    ) {
+        PlanModel model = createModel();
+
+        model.addIngredient(1, unit, ingredient);
+
+        assertEquals(model.getKcal(), expectedKcal, 1e-12);
+        assertEquals(model.getProtein(), expectedProtein, 1e-12);
+        assertEquals(model.getCarbs(), expectedCarbs, 1e-12);
+        assertEquals(model.getFat(), expectedFat, 1e-12);
     }
 
     private PlanModel createModel() {

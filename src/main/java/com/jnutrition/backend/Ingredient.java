@@ -59,13 +59,35 @@ public class Ingredient {
     private double carbs;
     private double fat;
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Ingredient)) return false;
+
+        Ingredient that = (Ingredient) o;
+
+        if (Double.compare(that.kcal, kcal) != 0) return false;
+        if (Double.compare(that.protein, protein) != 0) return false;
+        if (Double.compare(that.carbs, carbs) != 0) return false;
+        if (Double.compare(that.fat, fat) != 0) return false;
+        return name.equals(that.name);
+
+    }
 
     @Override
-    public boolean equals(Object obj) {
-        if (obj == null || !(obj instanceof Ingredient))
-            return false;
-        return super.equals(obj) || equals((Ingredient) obj);
-
+    public int hashCode() {
+        int result;
+        long temp;
+        result = name.hashCode();
+        temp = Double.doubleToLongBits(kcal);
+        result = 31 * result + (int) (temp ^ (temp >>> 32));
+        temp = Double.doubleToLongBits(protein);
+        result = 31 * result + (int) (temp ^ (temp >>> 32));
+        temp = Double.doubleToLongBits(carbs);
+        result = 31 * result + (int) (temp ^ (temp >>> 32));
+        temp = Double.doubleToLongBits(fat);
+        result = 31 * result + (int) (temp ^ (temp >>> 32));
+        return result;
     }
 
     private final static double DELTA = 1e-15;

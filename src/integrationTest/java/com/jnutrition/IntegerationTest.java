@@ -1,5 +1,6 @@
 package com.jnutrition;
 
+import com.jnutrition.backend.Unit;
 import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
@@ -50,8 +51,9 @@ public class IntegerationTest {
     public void addOneIngredientWithUnits(){
         appRunner.startApp(database);
         appRunner.doubleClickItem(database.getItem(0));
-        appRunner.setUnit(1, database.Unit());
-        appRunner.assertDataDisplayedWithUnit(1, database.Unit());
+        Unit chosenUnit = database.getUnitForIngredient(database.getItem(0));
+        appRunner.setUnit(1, chosenUnit);
+        appRunner.assertDataDisplayedWithUnit(1, chosenUnit);
     }
 
     @Test
@@ -66,9 +68,10 @@ public class IntegerationTest {
     public void setUnit_DisplayedDataCorrespondToUnit(){
         appRunner.startApp(database);
         appRunner.doubleClickItem(database.getItem(0));
-        appRunner.setUnit(1, database.Unit());
+        Unit chosenUnit = database.getUnitForIngredient(database.getItem(0));
+        appRunner.setUnit(100, chosenUnit);
 
-        appRunner.assertTotalDataDisplayed(database.getItem(0), 1, database.Unit());
+        appRunner.assertTotalDataDisplayed(database.getItem(0), 100, chosenUnit);
     }
 	@AfterTest
 	public void tearDown(){

@@ -29,7 +29,7 @@ class AppRunner {
     void startApp(TestDatabase database) {
 		try {
 			FxToolkit.registerPrimaryStage();
-			FxToolkit.setupApplication(Main.class, database.getFilePath());
+			FxToolkit.setupApplication(Main.class, database.getFilePath(), database.getUnitDatabasePath());
 		} catch (TimeoutException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -92,7 +92,7 @@ class AppRunner {
         robot.clickOn("#" + AmountFieldName);
         robot.write(Double.toString(amount));
         robot.clickOn("#" + UnitFieldName);
-        robot.write(unit.toString());
+        robot.clickOn(unit.toString());
         robot.clickOn(ButtonType.OK.getText());
     }
 
@@ -110,10 +110,10 @@ class AppRunner {
     }
 
     public void assertTotalDataDisplayed(Ingredient item, double amount, Unit unit) {
-        assertDisplayedTotalFat(amount * unit.inGram() * item.getFat());
-        assertDisplayedTotalCarbs(amount * unit.inGram() * item.getCarbs());
-        assertDisplayedTotalProtein(amount * unit.inGram() * item.getProtein());
-        assertDisplayedTotalKCal(amount * unit.inGram() * item.getProtein());
+        assertDisplayedTotalFat(amount * unit.inGram() * item.getFat()/100);
+        assertDisplayedTotalCarbs(amount * unit.inGram() * item.getCarbs()/100);
+        assertDisplayedTotalProtein(amount * unit.inGram() * item.getProtein()/100);
+        assertDisplayedTotalKCal(amount * unit.inGram() * item.getKcal()/100);
     }
 
     private static class UnitMatcher{

@@ -43,6 +43,7 @@ public class MainViewController {
 	private final ObservableList<Ingredient> ingredientList = FXCollections.observableArrayList();
     private IngredientRepository repository;
     private final PlanModel model = new PlanModel();
+    private UnitRepository unitRepository;
 
     public void initialize(){
 		ingredientView.setItems(ingredientList);
@@ -67,8 +68,9 @@ public class MainViewController {
 
     }
 
-	public void setupController(IngredientRepository repository){
+	public void setupController(IngredientRepository repository, UnitRepository unitRepository){
         this.repository = repository;
+        this.unitRepository = unitRepository;
 		ingredientList.addAll(repository.getAllIngredients());
 
         ingredientView.setOnMouseClicked(e -> {
@@ -82,7 +84,7 @@ public class MainViewController {
     private void listDoubleClickHandler(){
         Ingredient i = ingredientView.getSelectionModel().getSelectedItem();
 
-        Pair<Double, Unit> result = showUnitDialog().orElse(null);
+        Pair<Double, Unit> result = showUnitDialog(i).orElse(null);
 
         if(result == null)
             return;
@@ -91,7 +93,7 @@ public class MainViewController {
 
     }
 
-    private Optional<Pair<Double, Unit>> showUnitDialog() {
+    private Optional<Pair<Double, Unit>> showUnitDialog(Ingredient ingredient) {
         Dialog<Pair<Double, Unit>> unitDialog = new Dialog<>();
         unitDialog.setTitle("Chose amount and unit");
 
@@ -99,10 +101,11 @@ public class MainViewController {
         GridPane gridPane = new GridPane();
 
         TextField amountField = new TextField();
-        TextField unitField = new TextField();
+        ComboBox<Unit> unitField = new ComboBox<>();
 
         amountField.setId("amountField");
         unitField.setId("unitField");
+        unitField.setItems(unitRepository.getUnitForIngredient(ingredient));
 
         gridPane.add(new Label("Amount:"), 0, 0);
         gridPane.add(amountField, 1, 0);
@@ -114,7 +117,7 @@ public class MainViewController {
         unitDialog.setResultConverter( button ->{
             if(button == ButtonType.CANCEL)
                 return null;
-            return new Pair<Double, Unit>(Double.parseDouble(amountField.getText()), new Unit(unitField.getText(), 1));
+            return new Pair<Double, Unit>(Double.parseDouble(amountField.getText()), unitField.getValue());
         });
 
         return unitDialog.showAndWait();
