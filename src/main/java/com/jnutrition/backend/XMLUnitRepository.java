@@ -27,6 +27,10 @@ public class XMLUnitRepository implements UnitRepository{
             public double gram;
             @XmlElement(name = "Ingredient")
             public String ingredient;
+
+            com.jnutrition.backend.Unit toUnit(){
+                return new com.jnutrition.backend.Unit(name, gram);
+            }
         }
 
         @XmlElement(name = "Unit")
@@ -55,7 +59,7 @@ public class XMLUnitRepository implements UnitRepository{
         if(!unitMap.containsKey(unit.ingredient))
             unitMap.put(unit.ingredient, FXCollections.observableArrayList(Unit.GRAM));
 
-        unitMap.get(unit.ingredient).add(new Unit(unit.name, unit.gram));
+        unitMap.get(unit.ingredient).add(unit.toUnit());
     }
 
     @Override

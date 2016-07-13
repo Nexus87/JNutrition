@@ -1,14 +1,7 @@
 package com.jnutrition.backend;
 
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlType;
-
-@XmlType(propOrder = {"name", "kcal", "protein", "carbs", "fat"})
-@XmlRootElement
 public class Ingredient {
 
-    public Ingredient(){}
     public Ingredient(String name, double kcal, double protein, double carbs, double fat) {
         this.name = name;
         this.kcal = kcal;
@@ -20,37 +13,17 @@ public class Ingredient {
     public double getFat() {
         return fat;
     }
-    @XmlElement
-    public void setFat(double fat) {
-        this.fat = fat;
-    }
     public String getName() {
         return name;
-    }
-    @XmlElement
-    public void setName(String name) {
-        this.name = name;
     }
     public double getKcal() {
         return kcal;
     }
-    @XmlElement
-    public void setKcal(double kcal) {
-        this.kcal = kcal;
-    }
     public double getProtein() {
         return protein;
     }
-    @XmlElement
-    public void setProtein(double protein) {
-        this.protein = protein;
-    }
     public double getCarbs() {
         return carbs;
-    }
-    @XmlElement
-    public void setCarbs(double carbs) {
-        this.carbs = carbs;
     }
 
     private String name;

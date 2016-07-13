@@ -3,36 +3,45 @@ package com.jnutrition.backend;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Unmarshaller;
-import javax.xml.bind.annotation.XmlElementRef;
+import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlSeeAlso;
-import java.io.*;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class XMLIngredientRepository implements IngredientRepository{
 
     @XmlRootElement
-    @XmlSeeAlso(Ingredient.class)
 	private static class Ingredients{
-        private List<Ingredient> ingredients;
+		private static class Ingredient{
+			@XmlElement
+			public String name;
+			@XmlElement
+			public double kcal;
+			@XmlElement
+			public double protein;
+			@XmlElement
+			public double carbs;
+			@XmlElement
+			public double fat;
 
-        @XmlElementRef
-        public List<Ingredient> getIngredients() {
-            return ingredients;
-        }
+			com.jnutrition.backend.Ingredient toIngredient(){
+				return new com.jnutrition.backend.Ingredient(name, kcal, protein, carbs, fat);
+			}
+		}
 
-        public void setIngredients(List<Ingredient> ingredients) {
-            this.ingredients = ingredients;
-        }
+		@XmlElement
+        public List<Ingredient> ingredient;
     }
 
 	private List<Ingredient> ingredients = new ArrayList<>();
 	
 	public XMLIngredientRepository(InputStream inputStream) {
 
-        Ingredients l = null;
+        Ingredients l = new Ingredients();
+		l.ingredient = new ArrayList<>();
 		try {
 			JAXBContext context = JAXBContext.newInstance(Ingredients.class);
 			Unmarshaller um = context.createUnmarshaller();
@@ -41,7 +50,9 @@ public class XMLIngredientRepository implements IngredientRepository{
 			e.printStackTrace();
 		}
 
-		ingredients = l.ingredients;
+		 ingredients = l.ingredient.stream()
+				.map(ingredient -> ingredient.toIngredient())
+				.collect(Collectors.toList());
 
     }
 
