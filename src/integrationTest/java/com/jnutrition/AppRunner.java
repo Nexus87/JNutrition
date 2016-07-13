@@ -10,15 +10,15 @@ import org.testfx.api.FxToolkit;
 
 import java.util.concurrent.TimeoutException;
 
+import static com.jnutrition.ListViewMatcher.hasCellThatContainsText;
+import static org.testfx.matcher.control.ListViewMatchers.hasItems;
 import static org.testfx.matcher.control.ListViewMatchers.hasListCell;
-import static org.testfx.matcher.control.TableViewMatchers.hasItems;
-import static org.testfx.matcher.control.TableViewMatchers.hasTableCell;
 import static org.testng.Assert.assertEquals;
 
 class AppRunner {
 
 	private static final String ListName = "ingredientView";
-	private static final String TableName = "planTable";
+	private static final String PlanListName = "planList";
     private static final String KCalLableName = "kcalLabel";
     private static final String ProteinLableName = "proteinLabel";
     private static final String CarbsLableName = "carbsLabel";
@@ -47,11 +47,11 @@ class AppRunner {
 	}
 
 	void assertTableShowsItem(Ingredient item) {
-		FxAssert.verifyThat("#" + TableName, hasTableCell(item.getName()));
-		FxAssert.verifyThat("#" + TableName, hasTableCell(item.getProtein()));
-		FxAssert.verifyThat("#" + TableName, hasTableCell(item.getCarbs()));
-		FxAssert.verifyThat("#" + TableName, hasTableCell(item.getFat()));
-		FxAssert.verifyThat("#" + TableName, hasTableCell(item.getKcal()));
+		FxAssert.verifyThat("#" + PlanListName, hasCellThatContainsText(item.getName()));
+		FxAssert.verifyThat("#" + PlanListName, hasCellThatContainsText(item.getProtein()));
+		FxAssert.verifyThat("#" + PlanListName, hasCellThatContainsText(item.getCarbs()));
+		FxAssert.verifyThat("#" + PlanListName, hasCellThatContainsText(item.getFat()));
+		FxAssert.verifyThat("#" + PlanListName, hasCellThatContainsText(item.getKcal()));
 	}
 
     void assertDisplayedTotalKCal(double totalKCal) {
@@ -97,7 +97,7 @@ class AppRunner {
     }
 
     public void assertDataDisplayedWithUnit(double amount, Unit unit) {
-        FxAssert.verifyThat("#" + TableName, hasTableCell(amount + " " + unit));
+        FxAssert.verifyThat("#" + PlanListName, hasCellThatContainsText(amount + "" + unit));
     }
 
     public void cancelUnitDialog() {
@@ -106,7 +106,7 @@ class AppRunner {
     }
 
     public void assertTableIsEmpty() {
-        FxAssert.verifyThat("#" + TableName, hasItems(0));
+        FxAssert.verifyThat("#" + PlanListName, hasItems(0));
     }
 
     public void assertTotalDataDisplayed(Ingredient item, double amount, Unit unit) {

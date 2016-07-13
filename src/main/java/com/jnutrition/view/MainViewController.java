@@ -1,12 +1,10 @@
 package com.jnutrition.view;
 
 import com.jnutrition.backend.*;
-import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
-import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.GridPane;
 import javafx.util.Pair;
 
@@ -16,21 +14,8 @@ public class MainViewController {
 	@FXML
 	private ListView<Ingredient> ingredientView;
 
-	@FXML
-    private TableView<PlanItem> planTable;
-
     @FXML
-    private TableColumn<PlanItem, String> nameColumn;
-    @FXML
-    private TableColumn<PlanItem, Double> kcalColumn;
-    @FXML
-    private TableColumn<PlanItem, Double> proteinColumn;
-    @FXML
-    private TableColumn<PlanItem, Double> carbsColumn;
-    @FXML
-    private TableColumn<PlanItem, Double> fatColumn;
-    @FXML
-    private TableColumn<PlanItem, String> amountColumn;
+    private ListView<PlanItem> planList;
     @FXML
     private Label kcalLabel;
     @FXML
@@ -47,25 +32,16 @@ public class MainViewController {
 
     public void initialize(){
 		ingredientView.setItems(ingredientList);
-        planTable.setItems(model.getReadOnlyList());
+        planList.setItems(model.getReadOnlyList());
 
         ingredientView.setCellFactory(p -> new IngredientCell());
-        nameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
-        kcalColumn.setCellValueFactory(new PropertyValueFactory<>("kcal"));
-        proteinColumn.setCellValueFactory(new PropertyValueFactory<>("protein"));
-        carbsColumn.setCellValueFactory(new PropertyValueFactory<>("carbs"));
-        fatColumn.setCellValueFactory(new PropertyValueFactory<>("fat"));
-        amountColumn.setCellValueFactory(param -> {
-            PlanItem item = param.getValue();
-            return new SimpleStringProperty(item.getAmount() + " " + item.getUnit());
-        });
 
         kcalLabel.textProperty().bind(model.kcalProperty().asString());
         proteinLabel.textProperty().bind(model.proteinProperty().asString());
         carbsLabel.textProperty().bind(model.carbsProperty().asString());
         fatLabel.textProperty().bind(model.fatProperty().asString());
 
-
+        planList.setCellFactory(param -> new PlanListCell());
     }
 
 	public void setupController(IngredientRepository repository, UnitRepository unitRepository){
