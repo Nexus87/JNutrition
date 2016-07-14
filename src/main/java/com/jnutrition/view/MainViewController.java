@@ -35,7 +35,15 @@ public class MainViewController {
     public void initialize(){
         FilteredList<Ingredient> filteredList = new FilteredList<Ingredient>(ingredientList, ingredient -> true);
 
-        ingredientView.setCellFactory(p -> new IngredientCell());
+        ingredientView.setCellFactory(p -> {
+            IngredientCell cell = new IngredientCell();
+            cell.setOnMouseClicked(event ->{
+                if(event.getClickCount() != 2)
+                    return;
+                listDoubleClickHandler();
+            });
+            return cell;
+        });
 
         kcalLabel.textProperty().bind(model.kcalProperty().asString());
         proteinLabel.textProperty().bind(model.proteinProperty().asString());
@@ -61,14 +69,6 @@ public class MainViewController {
         this.repository = repository;
         this.unitRepository = unitRepository;
 		ingredientList.addAll(repository.getAllIngredients());
-
-        //FIXME this handler should be bound the list cell instead of the list itself. Otherwise the handler will act even if no cell was clicked.
-        ingredientView.setOnMouseClicked(e -> {
-            if(e.getClickCount() != 2)
-                return;
-
-            listDoubleClickHandler();
-        });
 	}
 
     private void listDoubleClickHandler(){
