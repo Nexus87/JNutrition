@@ -18,10 +18,10 @@ public class PlanItemTest {
     public void createPlanItem_WithDefaultUnit_DataEqualGivenData(Ingredient testIngredient){
         PlanItem item = new PlanItem(testIngredient, 100, Unit.GRAM);
 
-        assertEquals(item.getKcal(), testIngredient.getKcal(), 1e-12);
-        assertEquals(item.getProtein(), testIngredient.getProtein(), 1e-12);
-        assertEquals(item.getCarbs(), testIngredient.getCarbs(), 1e-12);
-        assertEquals(item.getFat(), testIngredient.getFat(), 1e-12);
+        assertEquals(item.getKcal(), testIngredient.getKcal());
+        assertEquals(item.getProtein(), testIngredient.getProtein());
+        assertEquals(item.getCarbs(), testIngredient.getCarbs());
+        assertEquals(item.getFat(), testIngredient.getFat());
     }
 
     @DataProvider
@@ -39,10 +39,10 @@ public class PlanItemTest {
     ){
         PlanItem item = new PlanItem(testIngredient, amount, unit);
 
-        assertEquals(item.getKcal(), expectedKcal, 1e-12);
-        assertEquals(item.getProtein(), expectedProtein, 1e-12);
-        assertEquals(item.getCarbs(), expectedCarbs, 1e-12);
-        assertEquals(item.getFat(), expectedFat, 1e-12);
+        assertEquals(item.getKcal().doubleValue(), expectedKcal, 1e-12);
+        assertEquals(item.getProtein().doubleValue(), expectedProtein, 1e-12);
+        assertEquals(item.getCarbs().doubleValue(), expectedCarbs, 1e-12);
+        assertEquals(item.getFat().doubleValue(), expectedFat, 1e-12);
     }
 
 }

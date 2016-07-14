@@ -1,6 +1,5 @@
 package com.jnutrition;
 
-
 import com.google.common.base.Predicate;
 import javafx.scene.Node;
 import javafx.scene.control.Cell;

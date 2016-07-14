@@ -48,10 +48,10 @@ public class PlanModelTest {
         for(Ingredient i : ingredients)
             model.addIngredient(defaultAmount, defaultUnit, i);
 
-        assertEquals(totalKcal, model.getKcal(), 1e-12);
-        assertEquals(totalProtein, model.getProtein(), 1e-12);
-        assertEquals(totalCarbs, model.getCarbs(), 1e-12);
-        assertEquals(totalFat, model.getFat(), 1e-12);
+        assertEquals(totalKcal, model.getKcal().doubleValue(), 1e-12);
+        assertEquals(totalProtein, model.getProtein().doubleValue(), 1e-12);
+        assertEquals(totalCarbs, model.getCarbs().doubleValue(), 1e-12);
+        assertEquals(totalFat, model.getFat().doubleValue(), 1e-12);
     }
 
     @DataProvider
@@ -70,10 +70,10 @@ public class PlanModelTest {
 
         model.addIngredient(1, unit, ingredient);
 
-        assertEquals(model.getKcal(), expectedKcal, 1e-12);
-        assertEquals(model.getProtein(), expectedProtein, 1e-12);
-        assertEquals(model.getCarbs(), expectedCarbs, 1e-12);
-        assertEquals(model.getFat(), expectedFat, 1e-12);
+        assertEquals(model.getKcal().doubleValue(), expectedKcal, 1e-12);
+        assertEquals(model.getProtein().doubleValue(), expectedProtein, 1e-12);
+        assertEquals(model.getCarbs().doubleValue(), expectedCarbs, 1e-12);
+        assertEquals(model.getFat().doubleValue(), expectedFat, 1e-12);
     }
 
     private PlanModel createModel() {

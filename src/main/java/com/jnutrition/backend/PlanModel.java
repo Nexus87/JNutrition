@@ -1,46 +1,48 @@
 package com.jnutrition.backend;
 
-import javafx.beans.property.DoubleProperty;
-import javafx.beans.property.SimpleDoubleProperty;
+import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 
 public class PlanModel {
     private final ObservableList<PlanItem> ingredients = FXCollections.observableArrayList();
     private final ObservableList<PlanItem> readOnly = FXCollections.unmodifiableObservableList(ingredients);
 
-    public DoubleProperty kcalProperty() {
+    public SimpleObjectProperty<BigDecimal> kcalProperty() {
         return kcal;
     }
 
-    public DoubleProperty proteinProperty() {
+    public SimpleObjectProperty<BigDecimal> proteinProperty() {
         return protein;
     }
 
-    public DoubleProperty carbsProperty() {
+    public SimpleObjectProperty<BigDecimal> carbsProperty() {
         return carbs;
     }
 
-    public DoubleProperty fatProperty() {
+    public SimpleObjectProperty<BigDecimal> fatProperty() {
         return fat;
     }
 
-    private final DoubleProperty kcal = new SimpleDoubleProperty();
-    private final DoubleProperty protein = new SimpleDoubleProperty();
-    private final DoubleProperty carbs = new SimpleDoubleProperty();
-    private final DoubleProperty fat = new SimpleDoubleProperty();
+    private final SimpleObjectProperty<BigDecimal> kcal = new SimpleObjectProperty<>(new BigDecimal(0));
+    private final SimpleObjectProperty<BigDecimal> protein = new SimpleObjectProperty<>(new BigDecimal(0));
+    private final SimpleObjectProperty<BigDecimal> carbs = new SimpleObjectProperty<>(new BigDecimal(0));
+    private final SimpleObjectProperty<BigDecimal> fat = new SimpleObjectProperty<>(new BigDecimal(0));
 
     public void addIngredient(double amount, Unit unit, Ingredient ingredient) {
         PlanItem item = new PlanItem(ingredient, amount, unit);
-        double currentKcal = getKcal();
-        double currentProtein = getProtein();
-        double currentCarbs = getCarbs();
-        double currentFat = getFat();
+        BigDecimal currentKcal = getKcal();
+        BigDecimal currentProtein = getProtein();
+        BigDecimal currentCarbs = getCarbs();
+        BigDecimal currentFat = getFat();
 
-        kcal.set(item.getKcal() + currentKcal);
-        protein.set(item.getProtein() + currentProtein);
-        carbs.set(item.getCarbs()+ currentCarbs);
-        fat.set(item.getFat()+ currentFat);
+        kcal.set(currentKcal.add(item.getKcal().setScale(2, RoundingMode.HALF_UP)));
+        protein.set(currentProtein.add(item.getProtein()).setScale(2, RoundingMode.HALF_UP));
+        carbs.set(currentCarbs.add(item.getCarbs()).setScale(2, RoundingMode.HALF_UP));
+        fat.set(currentFat.add(item.getFat()).setScale(2, RoundingMode.HALF_UP));
         ingredients.add(item);
     }
 
@@ -48,19 +50,19 @@ public class PlanModel {
         return readOnly;
     }
 
-    double getKcal() {
+    BigDecimal getKcal() {
         return kcal.get();
     }
 
-    double getProtein() {
+    BigDecimal getProtein() {
         return protein.get();
     }
 
-    double getCarbs() {
+    BigDecimal getCarbs() {
         return carbs.get();
     }
 
-    double getFat() {
+    BigDecimal getFat() {
         return fat.get();
     }
 }

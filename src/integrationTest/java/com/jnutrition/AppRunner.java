@@ -81,10 +81,10 @@ class AppRunner {
     }
 
     public void assertDataDisplayed(Ingredient item) {
-        assertDisplayedTotalCarbs(item.getCarbs());
-        assertDisplayedTotalFat(item.getFat());
-        assertDisplayedTotalKCal(item.getKcal());
-        assertDisplayedTotalProtein(item.getProtein());
+        assertDisplayedTotalCarbs(item.getCarbs().doubleValue());
+        assertDisplayedTotalFat(item.getFat().doubleValue());
+        assertDisplayedTotalKCal(item.getKcal().doubleValue());
+        assertDisplayedTotalProtein(item.getProtein().doubleValue());
     }
 
     public void setUnit(double amount, Unit unit) {
@@ -110,10 +110,10 @@ class AppRunner {
     }
 
     public void assertTotalDataDisplayed(Ingredient item, double amount, Unit unit) {
-        assertDisplayedTotalFat(amount * unit.inGram() * item.getFat()/100);
-        assertDisplayedTotalCarbs(amount * unit.inGram() * item.getCarbs()/100);
-        assertDisplayedTotalProtein(amount * unit.inGram() * item.getProtein()/100);
-        assertDisplayedTotalKCal(amount * unit.inGram() * item.getKcal()/100);
+        assertDisplayedTotalFat(amount * unit.inGram() * item.getFat().doubleValue()/100);
+        assertDisplayedTotalCarbs(amount * unit.inGram() * item.getCarbs().doubleValue()/100);
+        assertDisplayedTotalProtein(amount * unit.inGram() * item.getProtein().doubleValue()/100);
+        assertDisplayedTotalKCal(amount * unit.inGram() * item.getKcal().doubleValue()/100);
     }
 
     private static class UnitMatcher{

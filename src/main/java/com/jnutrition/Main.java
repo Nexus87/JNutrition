@@ -36,6 +36,12 @@ public class Main extends Application {
 
     public static void main(String[] args)
     {
+        if(args.length != 2)
+            args = new String[]{
+                    ClassLoader.getSystemResource("IngredientDatabaseResources.xml").getFile(),
+                    ClassLoader.getSystemResource("UnitDatabaseResources.xml").getFile()
+            };
+
         launch(args);
     }
 }
