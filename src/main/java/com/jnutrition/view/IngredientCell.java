@@ -8,8 +8,11 @@ class IngredientCell extends ListCell<Ingredient>{
     protected void updateItem(Ingredient item, boolean empty) {
         super.updateItem(item, empty);
 
-        if(item == null || empty)
+        if(item == null || empty){
+            setText("");
+            setGraphic(null);
             return;
+        }
 
         setText(item.getName());
         setGraphic(null);

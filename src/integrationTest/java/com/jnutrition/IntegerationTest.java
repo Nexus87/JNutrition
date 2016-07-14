@@ -73,6 +73,14 @@ public class IntegerationTest {
 
         appRunner.assertTotalDataDisplayed(database.getItem(0), 100, chosenUnit);
     }
+
+    @Test
+    public void filterIngredientList_useExactName(){
+        appRunner.startApp(database);
+        appRunner.setFilter(database.getItem(0));
+
+        appRunner.assertIngredientViewShowsData(database.getItem(0));
+    }
 	@AfterTest
 	public void tearDown(){
 		database.Clean();

@@ -3,6 +3,7 @@ package com.jnutrition.view;
 import com.jnutrition.backend.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
@@ -13,7 +14,8 @@ import java.util.Optional;
 public class MainViewController {
 	@FXML
 	private ListView<Ingredient> ingredientView;
-
+    @FXML
+    private TextField filterBox;
     @FXML
     private ListView<PlanItem> planList;
     @FXML
@@ -31,8 +33,7 @@ public class MainViewController {
     private UnitRepository unitRepository;
 
     public void initialize(){
-		ingredientView.setItems(ingredientList);
-        planList.setItems(model.getReadOnlyList());
+        FilteredList<Ingredient> filteredList = new FilteredList<Ingredient>(ingredientList, ingredient -> true);
 
         ingredientView.setCellFactory(p -> new IngredientCell());
 
@@ -42,6 +43,18 @@ public class MainViewController {
         fatLabel.textProperty().bind(model.fatProperty().asString());
 
         planList.setCellFactory(param -> new PlanListCell());
+
+        filterBox.textProperty().addListener((observable, oldValue, newValue) -> {
+            filteredList.setPredicate(ingredient -> {
+                if(newValue == null || newValue.isEmpty())
+                    return true;
+
+                return ingredient.getName().equals(newValue);
+            });
+        });
+
+        ingredientView.setItems(filteredList);
+        planList.setItems(model.getReadOnlyList());
     }
 
 	public void setupController(IngredientRepository repository, UnitRepository unitRepository){
@@ -49,6 +62,7 @@ public class MainViewController {
         this.unitRepository = unitRepository;
 		ingredientList.addAll(repository.getAllIngredients());
 
+        //FIXME this handler should be bound the list cell instead of the list itself. Otherwise the handler will act even if no cell was clicked.
         ingredientView.setOnMouseClicked(e -> {
             if(e.getClickCount() != 2)
                 return;
@@ -59,7 +73,8 @@ public class MainViewController {
 
     private void listDoubleClickHandler(){
         Ingredient i = ingredientView.getSelectionModel().getSelectedItem();
-
+        if(i == null)
+            return;
         Pair<Double, Unit> result = showUnitDialog(i).orElse(null);
 
         if(result == null)

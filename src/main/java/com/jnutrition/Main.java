@@ -10,16 +10,25 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
 import java.io.FileInputStream;
+import java.io.InputStream;
 
 public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-        String filePath = getParameters().getRaw().get(0);
-        String unitsFilePath = getParameters().getRaw().get(1);
+        InputStream ingredients;
+        InputStream units;
+        if (getParameters().getRaw().size() == 2){
+            ingredients = new FileInputStream(getParameters().getRaw().get(0));
+            units = new FileInputStream(getParameters().getRaw().get(1));
+        }
+        else {
+            ingredients = Main.class.getResourceAsStream("/IngredientDatabaseResources.xml");
+            units = Main.class.getResourceAsStream("/UnitDatabaseResources.xml");
+        }
 
-        XMLIngredientRepository repository = new XMLIngredientRepository(new FileInputStream(filePath));
-        XMLUnitRepository unitRepository = new XMLUnitRepository(new FileInputStream(unitsFilePath));
+        XMLIngredientRepository repository = new XMLIngredientRepository(ingredients);
+        XMLUnitRepository unitRepository = new XMLUnitRepository(units);
 
     	FXMLLoader loader = new FXMLLoader();
         loader.setLocation(Main.class.getResource("view/MainView.fxml"));
@@ -36,12 +45,6 @@ public class Main extends Application {
 
     public static void main(String[] args)
     {
-        if(args.length != 2)
-            args = new String[]{
-                    ClassLoader.getSystemResource("IngredientDatabaseResources.xml").getFile(),
-                    ClassLoader.getSystemResource("UnitDatabaseResources.xml").getFile()
-            };
-
         launch(args);
     }
 }

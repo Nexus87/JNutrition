@@ -25,6 +25,7 @@ class AppRunner {
     private static final String FatLableName = "fatLabel";
     private static final String AmountFieldName = "amountField";
     private static final String UnitFieldName = "unitField";
+    private static final String FilterTextBoxName = "filterBox";
 
     void startApp(TestDatabase database) {
 		try {
@@ -114,6 +115,18 @@ class AppRunner {
         assertDisplayedTotalCarbs(amount * unit.inGram() * item.getCarbs().doubleValue()/100);
         assertDisplayedTotalProtein(amount * unit.inGram() * item.getProtein().doubleValue()/100);
         assertDisplayedTotalKCal(amount * unit.inGram() * item.getKcal().doubleValue()/100);
+    }
+
+    public void setFilter(Ingredient item) {
+        FxRobot robot = new FxRobot();
+        robot.clickOn("#" + FilterTextBoxName);
+        robot.write(item.getName());
+    }
+
+    public void assertIngredientViewShowsData(Ingredient... items) {
+        FxAssert.verifyThat("#" + ListName, hasItems(items.length));
+        for(Ingredient i : items)
+            FxAssert.verifyThat("#" + ListName, hasListCell(i));
     }
 
     private static class UnitMatcher{
