@@ -1,13 +1,17 @@
 package com.jnutrition.backend;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
+
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Unmarshaller;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import java.io.InputStream;
+import java.math.BigDecimal;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -16,16 +20,16 @@ public class XMLIngredientRepository implements IngredientRepository{
     @XmlRootElement
 	private static class Ingredients{
 		private static class Ingredient{
+            @XmlElement
+            String name;
 			@XmlElement
-			public String name;
+            BigDecimal kcal;
+            @XmlElement
+            BigDecimal protein;
 			@XmlElement
-			public double kcal;
+            BigDecimal carbs;
 			@XmlElement
-			public double protein;
-			@XmlElement
-			public double carbs;
-			@XmlElement
-			public double fat;
+            BigDecimal fat;
 
 			com.jnutrition.backend.Ingredient toIngredient(){
 				return new com.jnutrition.backend.Ingredient(name, kcal, protein, carbs, fat);
@@ -36,8 +40,9 @@ public class XMLIngredientRepository implements IngredientRepository{
         public List<Ingredient> ingredient;
     }
 
-	private List<Ingredient> ingredients = new ArrayList<>();
-	
+	private ObservableList<Ingredient> ingredients;
+	private FilteredList<Ingredient> filteredIngredients;
+
 	public XMLIngredientRepository(InputStream inputStream) {
 
         Ingredients l = new Ingredients();
@@ -50,20 +55,33 @@ public class XMLIngredientRepository implements IngredientRepository{
 			e.printStackTrace();
 		}
 
-		 ingredients = l.ingredient.stream()
-				.map(ingredient -> ingredient.toIngredient())
-				.collect(Collectors.toList());
-
+        ingredients = FXCollections.observableArrayList(l.ingredient.stream()
+				.map(Ingredients.Ingredient::toIngredient)
+				.collect(Collectors.toList()));
+        filteredIngredients = new FilteredList<>(ingredients);
     }
 
 	@Override
-	public Collection<Ingredient> getAllIngredients() {
-		return ingredients;
+	public ObservableList<Ingredient> getAllIngredients() {
+		return filteredIngredients;
 	}
 
-	@Override
+    @Override
+    public void setNameFilter(String name) {
+        filteredIngredients.setPredicate(ingredient -> {
+            if(name == null || name.isEmpty())
+                return true;
+            return ingredient.getName().equals(name);
+        });
+    }
+
+    @Override
 	public Ingredient getIngredientByName(String name) {
-		return ingredients.stream().filter(ingredient -> ingredient.getName().equals(name)).findFirst().orElse(null);
+		return ingredients
+				.stream()
+				.filter(ingredient -> ingredient.getName().equals(name))
+				.findFirst()
+				.orElse(null);
 	}
 
 }

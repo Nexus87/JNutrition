@@ -1,14 +1,20 @@
 package com.jnutrition.backend;
 
 
-
+import javafx.collections.ObservableList;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
-import static org.hamcrest.CoreMatchers.hasItem;
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.testng.AssertJUnit.assertEquals;
 
 import java.io.ByteArrayInputStream;
+import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.List;
+
+import static org.hamcrest.CoreMatchers.hasItem;
+import static org.hamcrest.CoreMatchers.hasItems;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.containsInAnyOrder;
+import static org.testng.AssertJUnit.assertEquals;
 
 public class XMLIngredientRepositoryTest {
     private static final String appleXML =
@@ -39,7 +45,7 @@ public class XMLIngredientRepositoryTest {
                     "<carbs>1.5</carbs>\n" +
                     "<fat>3.1</fat>\n" +
                     "</ingredient>\n";
-    private static final Ingredient eggIngredient = new Ingredient("Egg", 12.2, 1.4, 1.5, 3.1);
+    private static final Ingredient eggIngredient = new Ingredient("Egg", new BigDecimal("12.2"), new BigDecimal("1.4"), new BigDecimal("1.5"), new BigDecimal("3.1"));
 
     private static final String testFile =
             "<ingredients>\n" +
@@ -109,4 +115,41 @@ public class XMLIngredientRepositoryTest {
         return new XMLIngredientRepository(new ByteArrayInputStream(data.getBytes()));
     }
 
+    @DataProvider
+    public Object[][] filterItemsTestData(){
+        return new Object[][]{
+                {completeTestData, "Apple", appleIngredient}
+        };
+    }
+
+    @Test(dataProvider = "filterItemsTestData")
+    public void setNameFilter_ExactName_ListContainsOnlyOneItem(String data, String filter, Ingredient expectedIngredient){
+        XMLIngredientRepository repository = createIngredientRepository(data);
+        ObservableList<Ingredient> list = repository.getAllIngredients();
+
+        repository.setNameFilter(filter);
+
+        assertEquals(list.size(), 1);
+        assertThat(list, hasItems(expectedIngredient));
+    }
+
+    @DataProvider
+    public Object[][] resetFilterTestData(){
+        return new Object[][]{
+                {completeTestData, ""},
+                {completeTestData, null}
+        };
+    }
+
+    @Test(dataProvider = "resetFilterTestData")
+    public void setNameFilter_SetResetArgument_AllItemsAreShown(String data, String filter){
+        XMLIngredientRepository repository = createIngredientRepository(data);
+        List<Ingredient> fullList = new ArrayList<>(repository.getAllIngredients());
+
+        repository.setNameFilter("Apple");
+        repository.setNameFilter(filter);
+
+        List<Ingredient> unfilteredList = repository.getAllIngredients();
+        assertThat(unfilteredList, containsInAnyOrder(fullList.toArray()));
+    }
 }

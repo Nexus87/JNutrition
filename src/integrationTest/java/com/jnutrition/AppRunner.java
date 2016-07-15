@@ -129,23 +129,4 @@ class AppRunner {
             FxAssert.verifyThat("#" + ListName, hasListCell(i));
     }
 
-    private static class UnitMatcher{
-        private Unit unit;
-        private Double amount;
-
-        private UnitMatcher(Double amount, Unit unit) {
-            this.unit = unit;
-            this.amount = amount;
-        }
-
-        @Override
-        public boolean equals(Object o) {
-            if(!(o instanceof String))
-                return false;
-
-            String text = (String) o;
-
-            return text.contains(unit.toString()) && text.contains(amount.toString());
-        }
-    }
 }
