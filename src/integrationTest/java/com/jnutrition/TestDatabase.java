@@ -3,6 +3,7 @@ package com.jnutrition;
 import com.jnutrition.backend.Ingredient;
 import com.jnutrition.backend.Unit;
 
+import java.math.BigDecimal;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
@@ -17,7 +18,7 @@ class TestDatabase {
 		ingredients = Arrays.asList(
 				new Ingredient("Apple", 3.0, 2.0, 1.0, 0.0),
 				new Ingredient("Water", 1, 1, 1, 0),
-				new Ingredient("Egg", 3.3, 2.2, 1.12, 3.0)
+				new Ingredient("Egg", new BigDecimal("3.3"), new BigDecimal("2.2"), new BigDecimal("1.12"), new BigDecimal("3.0"))
 		);
 		ingredientsFile = ClassLoader.getSystemResource("IngredientDatabaseResources.xml").getFile();
 		unitsFile = ClassLoader.getSystemResource("UnitDatabaseResources.xml").getFile();

@@ -4,6 +4,8 @@ package com.jnutrition.backend;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
+import java.math.BigDecimal;
+
 import static org.testng.Assert.assertEquals;
 
 public class PlanItemTest {
@@ -18,10 +20,10 @@ public class PlanItemTest {
     public void createPlanItem_WithDefaultUnit_DataEqualGivenData(Ingredient testIngredient){
         PlanItem item = new PlanItem(testIngredient, 100, Unit.GRAM);
 
-        assertEquals(item.getKcal(), testIngredient.getKcal());
-        assertEquals(item.getProtein(), testIngredient.getProtein());
-        assertEquals(item.getCarbs(), testIngredient.getCarbs());
-        assertEquals(item.getFat(), testIngredient.getFat());
+        assertEquals(item.getKcal(), testIngredient.getKcal().setScale(2, BigDecimal.ROUND_HALF_UP));
+        assertEquals(item.getProtein(), testIngredient.getProtein().setScale(2, BigDecimal.ROUND_HALF_UP));
+        assertEquals(item.getCarbs(), testIngredient.getCarbs().setScale(2, BigDecimal.ROUND_HALF_UP));
+        assertEquals(item.getFat(), testIngredient.getFat().setScale(2, BigDecimal.ROUND_HALF_UP));
     }
 
     @DataProvider

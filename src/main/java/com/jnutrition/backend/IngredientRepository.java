@@ -1,10 +1,10 @@
 package com.jnutrition.backend;
 
-import java.util.Collection;
+import javafx.collections.ObservableList;
 
 public interface IngredientRepository {
 
-    Collection<Ingredient> getAllIngredients();
-
-    Ingredient getIngredientByName(String name);
+    ObservableList<Ingredient> getAllIngredients();
+    void setNameFilter(String name);
+    Object getIngredientByName(String name);
 }

@@ -1,9 +1,6 @@
 package com.jnutrition.view;
 
 import com.jnutrition.backend.*;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-import javafx.collections.transformation.FilteredList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
@@ -27,14 +24,10 @@ public class MainViewController {
     @FXML
     private Label fatLabel;
 
-	private final ObservableList<Ingredient> ingredientList = FXCollections.observableArrayList();
-    private IngredientRepository repository;
     private final PlanModel model = new PlanModel();
     private UnitRepository unitRepository;
 
     public void initialize(){
-        FilteredList<Ingredient> filteredList = new FilteredList<Ingredient>(ingredientList, ingredient -> true);
-
         ingredientView.setCellFactory(p -> {
             IngredientCell cell = new IngredientCell();
             cell.setOnMouseClicked(event ->{
@@ -51,24 +44,17 @@ public class MainViewController {
         fatLabel.textProperty().bind(model.fatProperty().asString());
 
         planList.setCellFactory(param -> new PlanListCell());
-
-        filterBox.textProperty().addListener((observable, oldValue, newValue) -> {
-            filteredList.setPredicate(ingredient -> {
-                if(newValue == null || newValue.isEmpty())
-                    return true;
-
-                return ingredient.getName().equals(newValue);
-            });
-        });
-
-        ingredientView.setItems(filteredList);
         planList.setItems(model.getReadOnlyList());
     }
 
 	public void setupController(IngredientRepository repository, UnitRepository unitRepository){
-        this.repository = repository;
         this.unitRepository = unitRepository;
-		ingredientList.addAll(repository.getAllIngredients());
+
+        filterBox.textProperty().addListener((observable, oldValue, newValue) -> {
+            repository.setNameFilter(newValue);
+        });
+
+        ingredientView.setItems(repository.getAllIngredients());
 	}
 
     private void listDoubleClickHandler(){

@@ -5,11 +5,18 @@ import java.math.BigDecimal;
 public class Ingredient {
 
     public Ingredient(String name, double kcal, double protein, double carbs, double fat){
+        this(name,
+                new BigDecimal(kcal),
+                new BigDecimal(protein),
+                new BigDecimal(carbs),
+                new BigDecimal(fat));
+    }
+    public Ingredient(String name, BigDecimal kcal, BigDecimal protein, BigDecimal carbs, BigDecimal fat){
         this.name = name;
-        this.kcal = new BigDecimal(kcal);
-        this.protein = new BigDecimal(protein);
-        this.carbs = new BigDecimal(carbs);
-        this.fat = new BigDecimal(fat);
+        this.kcal = kcal;
+        this.protein = protein;
+        this.carbs = carbs;
+        this.fat = fat;
     }
 
     public BigDecimal getFat() {
@@ -41,11 +48,11 @@ public class Ingredient {
 
         Ingredient that = (Ingredient) o;
 
-        if (!name.equals(that.name)) return false;
-        if (!kcal.equals(that.kcal)) return false;
-        if (!protein.equals(that.protein)) return false;
-        if (!carbs.equals(that.carbs)) return false;
-        return fat.equals(that.fat);
+        if (name.compareTo(that.name) != 0) return false;
+        if (kcal.compareTo(that.kcal) != 0) return false;
+        if (protein.compareTo(that.protein) != 0) return false;
+        if (carbs.compareTo(that.carbs) != 0) return false;
+        return fat.compareTo(that.fat) == 0;
 
     }
 
