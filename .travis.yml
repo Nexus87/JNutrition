@@ -3,3 +3,7 @@ jdk:
   - oraclejdk8
 script:
   - ./gradlew check
+addons:
+  apt:
+    packages:
+      - oracle-java8-installer
