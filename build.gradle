@@ -4,7 +4,7 @@ plugins {
 
 apply plugin: 'idea'
 apply plugin: 'java'
-apply from: "http://dl.bintray.com/content/shemnon/javafx-gradle/8.1.1/javafx.plugin"
+apply plugin: 'application'
 apply plugin: 'org.unbroken-dome.test-sets'
 
 task wrapper(type: Wrapper) {
@@ -26,9 +26,7 @@ dependencies {
     testCompile 'org.testfx:testfx-junit:4.0.1-alpha'
 }
 
-javafx {
-    mainClass 'com.jnutrition.Main'
-}
+mainClassName = 'com.jnutrition.Main'
 
 tasks.withType(Test) {
     reports.html.destination = file("${reporting.baseDir}/${name}")
