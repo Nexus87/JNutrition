@@ -2,11 +2,13 @@ package com.jnutrition;
 
 import com.jnutrition.backend.Ingredient;
 import com.jnutrition.backend.Unit;
+import javafx.scene.Node;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import org.testfx.api.FxAssert;
 import org.testfx.api.FxRobot;
 import org.testfx.api.FxToolkit;
+import org.testfx.service.query.NodeQuery;
 
 import java.util.concurrent.TimeoutException;
 
@@ -26,8 +28,11 @@ class AppRunner {
     private static final String AmountFieldName = "amountField";
     private static final String UnitFieldName = "unitField";
     private static final String FilterTextBoxName = "filterBox";
+    private TestDatabase database;
+    private static final String RemoveButtonName = "removeButton";
 
     void startApp(TestDatabase database) {
+        this.database = database;
 		try {
 			FxToolkit.registerPrimaryStage();
 			FxToolkit.setupApplication(Main.class, database.getFilePath(), database.getUnitDatabasePath());
@@ -129,4 +134,19 @@ class AppRunner {
             FxAssert.verifyThat("#" + ListName, hasListCell(i));
     }
 
+    public void addIngredient(Ingredient item) {
+        doubleClickItem(item);
+        setUnit(100, database.defaultUnit());
+    }
+
+    public void removeIngredient(Ingredient item) {
+        FxRobot robot = new FxRobot();
+        NodeQuery listView = robot.lookup("#" + PlanListName);
+        NodeQuery node = robot.from(listView).lookup(hasCellThatContainsText(item.getName()));
+
+        Node removeButton = robot.from(node).lookup("#" + RemoveButtonName).queryFirst();
+
+
+        robot.clickOn(removeButton.localToScreen(removeButton.getBoundsInLocal()));
+    }
 }

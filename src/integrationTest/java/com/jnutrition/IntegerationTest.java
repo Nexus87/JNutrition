@@ -81,6 +81,17 @@ public class IntegerationTest {
 
         appRunner.assertIngredientViewShowsData(database.getItem(0));
     }
+
+    @Test
+    public void addAndRemoveIngredient_IngredientIsRemovedFromList(){
+        appRunner.startApp(database);
+        appRunner.addIngredient(database.getItem(0));
+        appRunner.assertTableShowsItem(database.getItem(0));
+
+        appRunner.removeIngredient(database.getItem(0));
+
+        appRunner.assertTableIsEmpty();
+    }
 	@AfterTest
 	public void tearDown(){
 		database.Clean();

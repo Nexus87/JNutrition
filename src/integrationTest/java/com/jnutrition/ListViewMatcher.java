@@ -1,9 +1,7 @@
 package com.jnutrition;
 
-import com.google.common.base.Predicate;
 import javafx.scene.Node;
 import javafx.scene.control.Cell;
-import javafx.scene.control.Labeled;
 import javafx.scene.control.ListView;
 import org.hamcrest.BaseMatcher;
 import org.hamcrest.Description;
@@ -41,13 +39,9 @@ class ListViewMatcher extends BaseMatcher<Node>{
                 .filter(cell -> cell.getGraphic() != null)
                 .collect(Collectors.toSet());
 
-
+        Matcher<Node> matcher = ListCellMatcher.cellContainsText(searchString);
         for(Cell c : cells){
-            boolean found = nodeFinder.from(c.getGraphic())
-                    .lookup((Predicate<Node>) input -> input instanceof Labeled)
-                    .<Labeled>queryAll()
-                    .stream()
-                    .anyMatch(labeled -> labeled.getText().contains(searchString));
+            boolean found = matcher.matches(c);
             if(found)
                 return true;
         }
