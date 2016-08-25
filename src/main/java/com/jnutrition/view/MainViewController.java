@@ -43,7 +43,7 @@ public class MainViewController {
         carbsLabel.textProperty().bind(model.carbsProperty().asString());
         fatLabel.textProperty().bind(model.fatProperty().asString());
 
-        planList.setCellFactory(param -> new PlanListCell());
+        planList.setCellFactory(param -> new PlanListCell(model));
         planList.setItems(model.getReadOnlyList());
     }
 

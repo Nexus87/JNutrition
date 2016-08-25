@@ -1,6 +1,7 @@
 package com.jnutrition.view;
 
 import com.jnutrition.backend.PlanItem;
+import com.jnutrition.backend.PlanModel;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
@@ -15,7 +16,9 @@ class PlanListCell extends ListCell<PlanItem> {
     private final VBox layout = new VBox();
     private final HBox mainLayout = new HBox();
     private final Button removeButton = new Button();
-    PlanListCell(){
+    private final PlanModel model;
+
+    PlanListCell(PlanModel model){
         super();
         detailLabel.setFont(Font.font(null, 8.0));
         detailLabel.setTextAlignment(TextAlignment.CENTER);
@@ -25,6 +28,8 @@ class PlanListCell extends ListCell<PlanItem> {
         removeButton.setText("Remove");
 
         mainLayout.getChildren().addAll(layout, removeButton);
+
+        this.model = model;
     }
     @Override
     protected void updateItem(PlanItem item, boolean empty) {
@@ -42,6 +47,7 @@ class PlanListCell extends ListCell<PlanItem> {
                 " Fat: " + item.getFat()
         );
 
+        removeButton.setOnAction(event -> model.removeIngredient(item.getIngredient()));
         setGraphic(mainLayout);
     }
 }

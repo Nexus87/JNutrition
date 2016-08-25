@@ -6,6 +6,7 @@ import javafx.collections.ObservableList;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import java.util.Optional;
 
 public class PlanModel {
     private final ObservableList<PlanItem> ingredients = FXCollections.observableArrayList();
@@ -64,5 +65,25 @@ public class PlanModel {
 
     BigDecimal getFat() {
         return fat.get();
+    }
+
+    public void removeIngredient(Ingredient ingredient) {
+        Optional<PlanItem> ingredientItem = ingredients.stream().filter(planItem -> planItem.getIngredient().equals(ingredient)).findFirst();
+        if(!ingredientItem.isPresent())
+            return;
+
+        PlanItem item = ingredientItem.get();
+
+        BigDecimal currentKcal = getKcal();
+        BigDecimal currentProtein = getProtein();
+        BigDecimal currentCarbs = getCarbs();
+        BigDecimal currentFat = getFat();
+
+        kcal.set(currentKcal.subtract(item.getKcal().setScale(2, RoundingMode.HALF_UP)));
+        protein.set(currentProtein.subtract(item.getProtein()).setScale(2, RoundingMode.HALF_UP));
+        carbs.set(currentCarbs.subtract(item.getCarbs()).setScale(2, RoundingMode.HALF_UP));
+        fat.set(currentFat.subtract(item.getFat()).setScale(2, RoundingMode.HALF_UP));
+
+        ingredients.remove(item);
     }
 }

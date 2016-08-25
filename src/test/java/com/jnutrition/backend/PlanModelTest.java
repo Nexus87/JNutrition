@@ -6,8 +6,7 @@ import org.testng.annotations.Test;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.hasItem;
-import static org.hamcrest.Matchers.hasProperty;
+import static org.hamcrest.Matchers.*;
 import static org.testng.Assert.assertEquals;
 
 public class PlanModelTest {
@@ -76,6 +75,45 @@ public class PlanModelTest {
         assertEquals(model.getFat().doubleValue(), expectedFat, 1e-12);
     }
 
+    @DataProvider
+    public Object[][] removeItemTestData(){
+        return new Object[][]{
+                { new Ingredient("Apple", 2, 4, 6, 8), new Unit("Unit", 50)}
+        };
+    }
+
+    @Test(dataProvider = "removeItemTestData")
+    public void removeIngredient_ItemIsInList_IngredientListDoesNotContainItem(Ingredient ingredient, Unit unit){
+        PlanModel model = createModel();
+        model.addIngredient(1, unit, ingredient);
+
+        model.removeIngredient(ingredient);
+
+        assertThat(model.getReadOnlyList(), not(hasItem(hasProperty("ingredient", is(ingredient)))));
+    }
+
+    @DataProvider
+    public Object[][] removeItemMultipleTestData(){
+        return new Object[][]{
+                { 1, 2, 3, 4, new Ingredient("Apple", 2, 4, 6, 8), new Ingredient("Orange", 1, 2, 3, 4), new Unit("Unit", 100)}
+        };
+    }
+
+    @Test(dataProvider = "removeItemMultipleTestData")
+    public void removeIngredient_ItemIsInList_DataAreAsExpected(
+            double expectedKcal, double expectedProtein, double expectedCarbs, double expectedFat,
+            Ingredient ingredient, Ingredient ingredient2, Unit unit){
+        PlanModel model = createModel();
+        model.addIngredient(1, unit, ingredient);
+        model.addIngredient(1, unit, ingredient2);
+
+        model.removeIngredient(ingredient);
+
+        assertEquals(model.getKcal().doubleValue(), expectedKcal, 1e-12);
+        assertEquals(model.getProtein().doubleValue(), expectedProtein, 1e-12);
+        assertEquals(model.getCarbs().doubleValue(), expectedCarbs, 1e-12);
+        assertEquals(model.getFat().doubleValue(), expectedFat, 1e-12);
+    }
     private PlanModel createModel() {
         return new PlanModel();
     }
