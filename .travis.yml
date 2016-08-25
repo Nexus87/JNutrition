@@ -1,16 +1,18 @@
 language: java
 jdk:
-  - oraclejdk8
+- oraclejdk8
 script:
-  - ./gradlew check
+- ./gradlew check
 addons:
   apt:
     packages:
-      - oracle-java8-installer
+    - oracle-java8-installer
 deploy:
   provider: releases
-  api_key: GHToken
-  file: "build/distributions/jnutrition.zip"
-  skip_cleanup: true
+  api_key:
+    secure: atO44Gx9T1PYGj1OVlNOCtsz5rmuH3uIQl4ynkTkbZPnbypeTNuCZHUbfSLydTKGSsiqjRZD5cP7umnoH5SglozSEGvnG1pqmSXWnjRejjvWH6dI0SDt2Phowho2+rqOQvu2Ly2yH2zHsUC25oYhGsreS4M8Xh1//zXlOhyU/n5NZlfECvT7KXDxZY7yAzafo3pFdImCyxzJpkWPQ551bZoNQ10hAIs7c2mO0l21YOsQ+cIav1JHpehojrTv4yT0qlBNKmZGjmKiOk0B0kh3Eb4R6U/Yw/Lyy8/5ATO18uZUCacwc120oW72MzD/dfsGME6dUn7x7Cir60G2WsxwO2fojEtaz0Fd4vbosbALH+rbJlVzUTCkAQ0f0XiFRpBH3pIqc4dQzKUms1tVSMQ5IlBfy3qmPdvoDyRQeewVA38oFfsnE+V1LditTooCqaPQa/uqCQAqbEcea9tm+llnSykLOz5bi+q64v71SF8rgmk40U7UWq/La8SvppQAYIgSuN9SBR+Jve8CymYrCG70BCvxLr1lhJnXJxTMOUiAxC6p14OsdOKdSMm/kB6oe4PMeLAIxm/v5dJaJ5wXUNZUB6TyTtcqNRiPfsu/21tK+i9gRnR40wodRO8BaZCT4GDGAYMtclNF+ATEu/oIx6I3PMf3Nu1i7KDt03tOES0OGac=
+  file: build/distributions/JNutrition.zip
   on:
+    repo: Nexus87/JNutrition
     tags: true
+  before_deploy: ./gradlew distzip
