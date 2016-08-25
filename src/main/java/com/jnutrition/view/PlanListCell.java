@@ -49,7 +49,7 @@ class PlanListCell extends ListCell<PlanItem> {
                 " Fat: " + item.getFat()
         );
 
-        removeButton.setOnAction(event -> model.removeIngredient(item.getIngredient()));
+        removeButton.setOnAction(event -> model.removeItem(getIndex()));
         setGraphic(mainLayout);
     }
 }
