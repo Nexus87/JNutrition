@@ -6,6 +6,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.scene.text.TextAlignment;
@@ -24,9 +25,10 @@ class PlanListCell extends ListCell<PlanItem> {
         detailLabel.setTextAlignment(TextAlignment.CENTER);
         itemLabel.setTextAlignment(TextAlignment.CENTER);
         layout.getChildren().addAll(itemLabel, detailLabel);
+
         removeButton.setId("removeButton");
         removeButton.setText("Remove");
-
+        HBox.setHgrow(layout, Priority.ALWAYS);
         mainLayout.getChildren().addAll(layout, removeButton);
 
         this.model = model;
