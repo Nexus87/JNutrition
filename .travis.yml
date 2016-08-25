@@ -7,3 +7,10 @@ addons:
   apt:
     packages:
       - oracle-java8-installer
+deploy:
+  provider: releases
+  api_key: GHToken
+  file: "build/distributions/jnutrition.zip"
+  skip_cleanup: true
+  on:
+    tags: true
