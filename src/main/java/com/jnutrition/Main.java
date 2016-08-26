@@ -4,9 +4,7 @@ import com.jnutrition.backend.XMLIngredientRepository;
 import com.jnutrition.backend.XMLUnitRepository;
 import com.jnutrition.view.MainViewController;
 import javafx.application.Application;
-import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
-import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
 import java.io.FileInputStream;
@@ -30,12 +28,9 @@ public class Main extends Application {
         XMLIngredientRepository repository = new XMLIngredientRepository(ingredients);
         XMLUnitRepository unitRepository = new XMLUnitRepository(units);
 
-    	FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(Main.class.getResource("view/MainView.fxml"));
+        MainViewController root = new MainViewController();
 
-        AnchorPane root = loader.load();
-        MainViewController controller = loader.getController();
-        controller.setupController(repository, unitRepository);
+        root.setupController(repository, unitRepository);
 
         Scene scene = new Scene(root);
 

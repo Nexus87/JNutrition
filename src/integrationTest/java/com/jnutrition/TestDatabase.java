@@ -7,7 +7,6 @@ import java.math.BigDecimal;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
-import java.util.stream.Collectors;
 
 class TestDatabase {
 	
@@ -29,10 +28,6 @@ class TestDatabase {
 	}
 
 	void Clean() {
-	}
-
-	public Collection<String> getItemsNames() {
-		return ingredients.stream().map(Ingredient::getName).collect(Collectors.toList());
 	}
 
 	Collection<Ingredient> getItems(){
