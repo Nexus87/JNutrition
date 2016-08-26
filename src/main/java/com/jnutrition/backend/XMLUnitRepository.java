@@ -51,8 +51,7 @@ public class XMLUnitRepository implements UnitRepository{
     }
 
     private void sortUnits(Units l) {
-        for(Units.Unit unit : l.Units)
-            insertIntoMap(unit);
+        l.Units.forEach(this::insertIntoMap);
     }
 
     private void insertIntoMap(Units.Unit unit) {

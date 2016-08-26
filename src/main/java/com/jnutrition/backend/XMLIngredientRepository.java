@@ -40,8 +40,8 @@ public class XMLIngredientRepository implements IngredientRepository{
         public List<Ingredient> ingredient;
     }
 
-	private ObservableList<Ingredient> ingredients;
-	private FilteredList<Ingredient> filteredIngredients;
+	private final ObservableList<Ingredient> ingredients;
+	private final FilteredList<Ingredient> filteredIngredients;
 
 	public XMLIngredientRepository(InputStream inputStream) {
 

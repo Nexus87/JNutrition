@@ -14,7 +14,6 @@ import javafx.scene.text.TextAlignment;
 class PlanListCell extends ListCell<PlanItem> {
     private final Label itemLabel = new Label();
     private final Label detailLabel = new Label();
-    private final VBox layout = new VBox();
     private final HBox mainLayout = new HBox();
     private final Button removeButton = new Button();
     private final PlanModel model;
@@ -24,6 +23,7 @@ class PlanListCell extends ListCell<PlanItem> {
         detailLabel.setFont(Font.font(null, 8.0));
         detailLabel.setTextAlignment(TextAlignment.CENTER);
         itemLabel.setTextAlignment(TextAlignment.CENTER);
+        VBox layout = new VBox();
         layout.getChildren().addAll(itemLabel, detailLabel);
 
         removeButton.setId("removeButton");

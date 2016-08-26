@@ -35,11 +35,11 @@ public class Ingredient {
         return carbs;
     }
 
-    private String name;
-    private BigDecimal kcal;
-    private BigDecimal protein;
-    private BigDecimal carbs;
-    private BigDecimal fat;
+    private final String name;
+    private final BigDecimal kcal;
+    private final BigDecimal protein;
+    private final BigDecimal carbs;
+    private final BigDecimal fat;
 
     @Override
     public boolean equals(Object o) {

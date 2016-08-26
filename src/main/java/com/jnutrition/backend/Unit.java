@@ -5,7 +5,7 @@ public class Unit {
     public static final Unit GRAM = new Unit("g", 1);
 
     private final String name;
-    private double convertFactor;
+    private final double convertFactor;
 
     public Unit(String name, double convertFactor) {
         this.name = name;

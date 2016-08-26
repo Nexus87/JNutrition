@@ -31,6 +31,6 @@ public class MainViewController extends AnchorPane{
     public void setupController(IngredientRepository repository, UnitRepository unitRepository) {
         PlanModel planModel = new PlanModel();
         ingredientViewController.setupController(repository, unitRepository, planModel);
-        planViewController.setupController(unitRepository, planModel);
+        planViewController.setupController(planModel);
     }
 }
