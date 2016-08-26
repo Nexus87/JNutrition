@@ -92,6 +92,18 @@ public class IntegerationTest {
 
         appRunner.assertTableIsEmpty();
     }
+
+    @Test
+    public void alterPlanItemAmount_PlanItemsAmountChanged(){
+        appRunner.startApp(database);
+        appRunner.addIngredient(database.getItem(0));
+
+        appRunner.doubleClickOnPlanItem(database.getItem(0));
+
+        appRunner.setUnit(200, database.defaultUnit());
+
+        appRunner.assertDataDisplayedWithUnit(200, database.defaultUnit());
+    }
 	@AfterTest
 	public void tearDown(){
 		database.Clean();

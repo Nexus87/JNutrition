@@ -5,6 +5,7 @@ import com.jnutrition.backend.Unit;
 import javafx.scene.Node;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
+import javafx.scene.control.ListCell;
 import org.testfx.api.FxAssert;
 import org.testfx.api.FxRobot;
 import org.testfx.api.FxToolkit;
@@ -148,5 +149,13 @@ class AppRunner {
 
 
         robot.clickOn(removeButton.localToScreen(removeButton.getBoundsInLocal()));
+    }
+
+    public void doubleClickOnPlanItem(Ingredient item) {
+        FxRobot robot = new FxRobot();
+        NodeQuery listView = robot.lookup("#" + PlanListName);
+        ListCell node = robot.from(listView).lookup(hasCellThatContainsText(item.getName())).queryFirst();
+
+        robot.clickOn(node.localToScreen(node.getBoundsInLocal()));
     }
 }

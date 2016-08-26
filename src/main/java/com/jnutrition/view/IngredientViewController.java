@@ -3,13 +3,14 @@ package com.jnutrition.view;
 import com.jnutrition.backend.*;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.control.*;
+import javafx.scene.control.ListView;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.GridPane;
 import javafx.util.Pair;
 
 import java.io.IOException;
-import java.util.Optional;
+
+import static com.jnutrition.view.Util.showUnitDialog;
 
 public class IngredientViewController extends AnchorPane {
     @FXML
@@ -59,42 +60,12 @@ public class IngredientViewController extends AnchorPane {
         Ingredient i = ingredientView.getSelectionModel().getSelectedItem();
         if(i == null)
             return;
-        Pair<Double, Unit> result = showUnitDialog(i).orElse(null);
+        Pair<Double, Unit> result = showUnitDialog(i, unitRepository).orElse(null);
 
         if(result == null)
             return;
 
         model.addIngredient(result.getKey(), result.getValue(), i);
 
-    }
-
-    private Optional<Pair<Double, Unit>> showUnitDialog(Ingredient ingredient) {
-        Dialog<Pair<Double, Unit>> unitDialog = new Dialog<>();
-        unitDialog.setTitle("Chose amount and unit");
-
-        unitDialog.getDialogPane().getButtonTypes().addAll(ButtonType.OK, ButtonType.CANCEL);
-        GridPane gridPane = new GridPane();
-
-        TextField amountField = new TextField();
-        ComboBox<Unit> unitField = new ComboBox<>();
-
-        amountField.setId("amountField");
-        unitField.setId("unitField");
-        unitField.setItems(unitRepository.getUnitForIngredient(ingredient));
-
-        unitField.setValue(Unit.GRAM);
-        gridPane.add(new Label("Amount:"), 0, 0);
-        gridPane.add(amountField, 1, 0);
-        gridPane.add(unitField, 2, 0);
-
-        unitDialog.getDialogPane().setContent(gridPane);
-
-        unitDialog.setResultConverter( button ->{
-            if(button == ButtonType.CANCEL)
-                return null;
-            return new Pair<>(Double.parseDouble(amountField.getText()), unitField.getValue());
-        });
-
-        return unitDialog.showAndWait();
     }
 }

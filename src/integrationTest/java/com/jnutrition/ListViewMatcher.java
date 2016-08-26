@@ -2,7 +2,7 @@ package com.jnutrition;
 
 import javafx.scene.Node;
 import javafx.scene.control.Cell;
-import javafx.scene.control.ListView;
+import javafx.scene.control.ListCell;
 import org.hamcrest.BaseMatcher;
 import org.hamcrest.Description;
 import org.hamcrest.Matcher;
@@ -27,9 +27,9 @@ class ListViewMatcher extends BaseMatcher<Node>{
 
     @Override
     public boolean matches(Object item) {
-        if(item == null || !(item instanceof ListView))
+        if(item == null || !(item instanceof ListCell))
             return false;
-        ListView view = (ListView) item;
+        ListCell view = (ListCell) item;
 
         NodeFinder nodeFinder = FxAssert.assertContext().getNodeFinder();
         Set<Cell> cells = nodeFinder.from(view)

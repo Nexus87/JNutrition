@@ -44,4 +44,5 @@ public class PlanViewController extends AnchorPane{
         planList.setItems(model.getReadOnlyList());
     }
 
+
 }
