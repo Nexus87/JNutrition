@@ -10,17 +10,11 @@ import javafx.scene.layout.AnchorPane;
 
 import java.io.IOException;
 
-public class PlanViewController extends AnchorPane{
+public class PlanViewController extends FXMLController{
     public PlanViewController(){
         super();
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("PlanView.fxml"));
-        fxmlLoader.setRoot(this);
-        fxmlLoader.setController(this);
-        try {
-            fxmlLoader.load();
-        } catch (IOException exception) {
-            throw new RuntimeException(exception);
-        }
+        fxmlFilePath = "PlanView.fxml";
+        loadFXML();
     }
 
     @FXML

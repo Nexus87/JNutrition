@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import com.jnutrition.view.IngredientViewController?>
 <?import com.jnutrition.view.PlanViewController?>
 <?import javafx.scene.control.SplitPane?>
 <?import javafx.scene.layout.*?>
@@ -8,8 +7,8 @@
    <children>
       <SplitPane dividerPositions="0.35547576301615796" layoutX="180.0" layoutY="91.0" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <items>
-            <IngredientViewController fx:id="ingredientViewController" />
-            <PlanViewController fx:id="planViewController" />
+            <VBox AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" fx:id="ingredientView" />
+            <VBox AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" fx:id="planView" />
          </items>
       </SplitPane>
    </children>

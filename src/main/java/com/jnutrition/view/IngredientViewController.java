@@ -12,7 +12,7 @@ import java.io.IOException;
 
 import static com.jnutrition.view.Util.showUnitDialog;
 
-public class IngredientViewController extends AnchorPane {
+public class IngredientViewController extends FXMLController {
     @FXML
     private ListView<Ingredient> ingredientView;
     @FXML
@@ -23,14 +23,8 @@ public class IngredientViewController extends AnchorPane {
 
     public IngredientViewController(){
         super();
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("IngredientView.fxml"));
-        fxmlLoader.setController(this);
-        fxmlLoader.setRoot(this);
-        try {
-            fxmlLoader.load();
-        } catch (IOException exception) {
-            throw new RuntimeException(exception);
-        }
+        fxmlFilePath = "IngredientView.fxml";
+        loadFXML();
     }
 
     public void initialize(){

@@ -5,16 +5,20 @@ import com.jnutrition.backend.PlanModel;
 import com.jnutrition.backend.UnitRepository;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.VBox;
 
 import java.io.IOException;
+import java.net.URL;
+import java.util.ResourceBundle;
 
-public class MainViewController extends AnchorPane{
+public class MainViewController extends AnchorPane implements Initializable{
 
     @FXML
-    private IngredientViewController ingredientViewController;
+    private VBox ingredientView;
     @FXML
-    private PlanViewController planViewController;
+    private VBox planView;
 
     public MainViewController(){
         super();
@@ -30,7 +34,17 @@ public class MainViewController extends AnchorPane{
 
     public void setupController(IngredientRepository repository, UnitRepository unitRepository) {
         PlanModel planModel = new PlanModel();
+
+        IngredientViewController ingredientViewController = new IngredientViewController();
         ingredientViewController.setupController(repository, unitRepository, planModel);
+        ingredientView.getChildren().add(ingredientViewController.getView());
+        PlanViewController planViewController = new PlanViewController();
         planViewController.setupController(planModel);
+        planView.getChildren().add(planViewController.getView());
+    }
+
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+
     }
 }
