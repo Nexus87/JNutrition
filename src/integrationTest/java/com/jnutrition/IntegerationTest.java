@@ -1,6 +1,6 @@
 package com.jnutrition;
 
-import com.jnutrition.backend.Unit;
+import com.jnutrition.model.Unit;
 import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;

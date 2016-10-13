@@ -1,6 +1,6 @@
 package com.jnutrition.ui.ingredients;
 
-import com.jnutrition.backend.Ingredient;
+import com.jnutrition.model.Ingredient;
 import javafx.scene.control.ListCell;
 
 class IngredientCell extends ListCell<Ingredient>{

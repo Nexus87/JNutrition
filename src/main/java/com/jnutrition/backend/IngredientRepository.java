@@ -1,5 +1,6 @@
 package com.jnutrition.backend;
 
+import com.jnutrition.model.Ingredient;
 import javafx.collections.ObservableList;
 
 public interface IngredientRepository {

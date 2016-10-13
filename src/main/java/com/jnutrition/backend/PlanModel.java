@@ -1,5 +1,7 @@
 package com.jnutrition.backend;
 
+import com.jnutrition.model.Ingredient;
+import com.jnutrition.model.Unit;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;

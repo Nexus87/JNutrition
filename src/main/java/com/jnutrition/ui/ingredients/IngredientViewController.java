@@ -1,6 +1,10 @@
 package com.jnutrition.ui.ingredients;
 
-import com.jnutrition.backend.*;
+import com.jnutrition.backend.IngredientRepository;
+import com.jnutrition.backend.PlanModel;
+import com.jnutrition.backend.UnitRepository;
+import com.jnutrition.model.Ingredient;
+import com.jnutrition.model.Unit;
 import com.jnutrition.ui.FXMLController;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;

@@ -1,5 +1,6 @@
 package com.jnutrition.backend;
 
+import com.jnutrition.model.Ingredient;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
@@ -31,8 +32,8 @@ public class XMLIngredientRepository implements IngredientRepository{
 			@XmlElement
             BigDecimal fat;
 
-			com.jnutrition.backend.Ingredient toIngredient(){
-				return new com.jnutrition.backend.Ingredient(name, kcal, protein, carbs, fat);
+			com.jnutrition.model.Ingredient toIngredient(){
+				return new com.jnutrition.model.Ingredient(name, kcal, protein, carbs, fat);
 			}
 		}
 

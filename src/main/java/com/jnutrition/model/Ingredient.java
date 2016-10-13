@@ -1,7 +1,11 @@
-package com.jnutrition.backend;
+package com.jnutrition.model;
 
+import javax.persistence.Column;
+import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
 import java.math.BigDecimal;
 
+@Table(name = "Ingredients", uniqueConstraints = { @UniqueConstraint(columnNames = "name")})
 public class Ingredient {
 
     public Ingredient(String name, double kcal, double protein, double carbs, double fat){
@@ -19,22 +23,28 @@ public class Ingredient {
         this.fat = fat;
     }
 
+    @Column(name = "fat")
     public BigDecimal getFat() {
         return fat;
     }
+    @Column(name = "name", unique = true)
     public String getName() {
         return name;
     }
+    @Column(name = "kcal")
     public BigDecimal getKcal() {
         return kcal;
     }
+    @Column(name = "protein")
     public BigDecimal getProtein() {
         return protein;
     }
+    @Column(name = "carbs")
     public BigDecimal getCarbs() {
         return carbs;
     }
 
+    private int id;
     private final String name;
     private final BigDecimal kcal;
     private final BigDecimal protein;
@@ -70,5 +80,4 @@ public class Ingredient {
     public String toString() {
         return "[" + name + ", " + kcal + ", " + protein + ", " + carbs + ", " + fat + "]";
     }
-
 }

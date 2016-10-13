@@ -1,7 +1,7 @@
 package com.jnutrition;
 
-import com.jnutrition.backend.Ingredient;
-import com.jnutrition.backend.Unit;
+import com.jnutrition.model.Ingredient;
+import com.jnutrition.model.Unit;
 
 import java.math.BigDecimal;
 import java.util.Arrays;

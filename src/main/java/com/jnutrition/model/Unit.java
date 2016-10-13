@@ -1,4 +1,4 @@
-package com.jnutrition.backend;
+package com.jnutrition.model;
 
 
 public class Unit {

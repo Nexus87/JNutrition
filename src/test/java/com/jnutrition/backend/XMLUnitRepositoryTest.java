@@ -1,5 +1,6 @@
 package com.jnutrition.backend;
 
+import com.jnutrition.model.Unit;
 import org.testng.annotations.Test;
 
 import java.io.ByteArrayInputStream;

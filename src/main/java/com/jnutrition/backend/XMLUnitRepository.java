@@ -1,5 +1,7 @@
 package com.jnutrition.backend;
 
+import com.jnutrition.model.Ingredient;
+import com.jnutrition.model.Unit;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
@@ -28,8 +30,8 @@ public class XMLUnitRepository implements UnitRepository{
             @XmlElement(name = "Ingredient")
             public String ingredient;
 
-            com.jnutrition.backend.Unit toUnit(){
-                return new com.jnutrition.backend.Unit(name, gram);
+            com.jnutrition.model.Unit toUnit(){
+                return new com.jnutrition.model.Unit(name, gram);
             }
         }
 

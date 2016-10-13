@@ -25,6 +25,7 @@ dependencies {
     testCompile 'org.testfx:testfx-core:4.0.1-alpha'
     testCompile 'org.testfx:testfx-junit:4.0.1-alpha'
     compile group: 'org.springframework', name:'spring-context', version: '4.3.1.RELEASE'
+    compile group: 'org.hibernate', name:'hibernate-core', version: '5.2.3.Final'
 }
 
 mainClassName = 'com.jnutrition.Main'

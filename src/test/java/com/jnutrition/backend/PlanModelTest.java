@@ -1,5 +1,7 @@
 package com.jnutrition.backend;
 
+import com.jnutrition.model.Ingredient;
+import com.jnutrition.model.Unit;
 import javafx.collections.ObservableList;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
