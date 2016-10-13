@@ -7,16 +7,20 @@ import javafx.application.Application;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import org.springframework.context.annotation.ComponentScan;
 
 import java.io.FileInputStream;
 import java.io.InputStream;
-
+@ComponentScan(basePackages = "com.jnutrition")
 public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
         InputStream ingredients;
         InputStream units;
+        ApplicationContext context = new AnnotationConfigApplicationContext(Main.class);
         if (getParameters().getRaw().size() == 2){
             ingredients = new FileInputStream(getParameters().getRaw().get(0));
             units = new FileInputStream(getParameters().getRaw().get(1));
@@ -29,7 +33,7 @@ public class Main extends Application {
         XMLIngredientRepository repository = new XMLIngredientRepository(ingredients);
         XMLUnitRepository unitRepository = new XMLUnitRepository(units);
 
-        MainViewController root = new MainViewController();
+        MainViewController root = context.getBean(MainViewController.class);
 
         root.setupController(repository, unitRepository);
 

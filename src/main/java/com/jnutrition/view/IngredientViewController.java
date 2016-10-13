@@ -2,16 +2,14 @@ package com.jnutrition.view;
 
 import com.jnutrition.backend.*;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.AnchorPane;
 import javafx.util.Pair;
-
-import java.io.IOException;
+import org.springframework.stereotype.Component;
 
 import static com.jnutrition.view.Util.showUnitDialog;
 
+@Component
 public class IngredientViewController extends FXMLController {
     @FXML
     private ListView<Ingredient> ingredientView;
@@ -24,7 +22,6 @@ public class IngredientViewController extends FXMLController {
     public IngredientViewController(){
         super();
         fxmlFilePath = "IngredientView.fxml";
-        loadFXML();
     }
 
     public void initialize(){

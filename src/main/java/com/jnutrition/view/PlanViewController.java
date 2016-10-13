@@ -3,18 +3,15 @@ package com.jnutrition.view;
 import com.jnutrition.backend.PlanItem;
 import com.jnutrition.backend.PlanModel;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
-import javafx.scene.layout.AnchorPane;
+import org.springframework.stereotype.Component;
 
-import java.io.IOException;
-
+@Component
 public class PlanViewController extends FXMLController{
     public PlanViewController(){
         super();
         fxmlFilePath = "PlanView.fxml";
-        loadFXML();
     }
 
     @FXML

@@ -2,13 +2,11 @@ package com.jnutrition.view;
 
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
+import org.springframework.beans.factory.InitializingBean;
 
-import java.io.IOException;
 import java.io.InputStream;
-import java.net.URL;
-import java.util.ResourceBundle;
 
-public abstract class FXMLController {
+public abstract class FXMLController implements InitializingBean {
     protected String fxmlFilePath;
     private Node view;
 
@@ -20,6 +18,11 @@ public abstract class FXMLController {
         } catch (Throwable t) {
             t.printStackTrace();
         }
+    }
+
+    @Override
+    public void afterPropertiesSet() throws Exception {
+        loadFXML();
     }
 
     public Node getView(){
