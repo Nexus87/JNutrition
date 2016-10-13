@@ -3,10 +3,12 @@ package com.jnutrition.backend;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import org.springframework.stereotype.Component;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 
+@Component
 public class PlanModel {
     private final ObservableList<PlanItem> ingredients = FXCollections.observableArrayList();
     private final ObservableList<PlanItem> readOnly = FXCollections.unmodifiableObservableList(ingredients);
