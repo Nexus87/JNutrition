@@ -4,16 +4,13 @@ import com.jnutrition.backend.IngredientRepository;
 import com.jnutrition.backend.UnitRepository;
 import com.jnutrition.backend.XMLIngredientRepository;
 import com.jnutrition.backend.XMLUnitRepository;
-import com.jnutrition.view.MainViewController;
+import com.jnutrition.ui.JNutritionController;
 import javafx.application.Application;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import org.springframework.context.ApplicationContext;
-import org.springframework.context.annotation.AnnotationConfigApplicationContext;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.ComponentScan;
-import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.*;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -22,11 +19,10 @@ import java.util.Arrays;
 import java.util.List;
 
 @ComponentScan(basePackages = "com.jnutrition")
+@PropertySource(value = "classpath:/com/jnutrition/application.properties")
 @Configuration
 public class Main extends Application {
 
-    private XMLIngredientRepository ingredientRepository;
-    private XMLUnitRepository unitRepository;
     private static List<String> parameters;
 
     @Bean
@@ -64,9 +60,7 @@ public class Main extends Application {
     public void start(Stage primaryStage) throws Exception {
 
         ApplicationContext context = new AnnotationConfigApplicationContext(Main.class);
-        MainViewController root = context.getBean(MainViewController.class);
-
-        root.setupController(ingredientRepository, unitRepository);
+        JNutritionController root = context.getBean(JNutritionController.class);
 
         Scene scene = new Scene((Parent) root.getView());
 
