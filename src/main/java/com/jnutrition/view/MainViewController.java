@@ -4,32 +4,19 @@ import com.jnutrition.backend.IngredientRepository;
 import com.jnutrition.backend.PlanModel;
 import com.jnutrition.backend.UnitRepository;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.fxml.Initializable;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.HBox;
 
-import java.io.IOException;
-import java.net.URL;
-import java.util.ResourceBundle;
-
-public class MainViewController extends AnchorPane implements Initializable{
+public class MainViewController extends FXMLController{
 
     @FXML
-    private VBox ingredientView;
+    private HBox ingredientView;
     @FXML
-    private VBox planView;
+    private HBox planView;
 
     public MainViewController(){
         super();
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("MainView.fxml"));
-        fxmlLoader.setController(this);
-        fxmlLoader.setRoot(this);
-        try {
-            fxmlLoader.load();
-        } catch (IOException exception) {
-            throw new RuntimeException(exception);
-        }
+        fxmlFilePath = "MainView.fxml";
+        loadFXML();
     }
 
     public void setupController(IngredientRepository repository, UnitRepository unitRepository) {
@@ -41,10 +28,5 @@ public class MainViewController extends AnchorPane implements Initializable{
         PlanViewController planViewController = new PlanViewController();
         planViewController.setupController(planModel);
         planView.getChildren().add(planViewController.getView());
-    }
-
-    @Override
-    public void initialize(URL location, ResourceBundle resources) {
-
     }
 }

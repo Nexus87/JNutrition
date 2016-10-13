@@ -1,15 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import com.jnutrition.view.PlanViewController?>
 <?import javafx.scene.control.SplitPane?>
 <?import javafx.scene.layout.*?>
-<fx:root prefHeight="443.0" prefWidth="559.0" type="javafx.scene.layout.AnchorPane" xmlns="http://javafx.com/javafx/8.0.92" xmlns:fx="http://javafx.com/fxml/1">
+<javafx.scene.layout.AnchorPane prefHeight="443.0" prefWidth="559.0" xmlns="http://javafx.com/javafx/8.0.92" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <SplitPane dividerPositions="0.35547576301615796" layoutX="180.0" layoutY="91.0" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <items>
-            <VBox AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" fx:id="ingredientView" />
-            <VBox AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" fx:id="planView" />
+            <HBox fx:id="ingredientView" prefHeight="100.0" prefWidth="200.0" />
+            <HBox fx:id="planView" prefHeight="100.0" prefWidth="200.0" />
          </items>
       </SplitPane>
    </children>
-</fx:root>
+</javafx.scene.layout.AnchorPane>
