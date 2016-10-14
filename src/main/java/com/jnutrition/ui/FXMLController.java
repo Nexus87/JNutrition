@@ -12,7 +12,7 @@ public abstract class FXMLController implements InitializingBean {
 
     public abstract void setFxmlFilePath(String filePath);
 
-    public void loadFXML(){
+    private void loadFXML(){
         try (InputStream fxmlStream = getClass().getResourceAsStream(fxmlFilePath)) {
             FXMLLoader loader = new FXMLLoader();
             loader.setController(this);

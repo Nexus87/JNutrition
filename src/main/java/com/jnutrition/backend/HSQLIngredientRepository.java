@@ -15,7 +15,7 @@ import java.util.List;
 
 @Component
 public class HSQLIngredientRepository implements IngredientRepository, InitializingBean{
-    private ObservableList<Ingredient> ingredients = FXCollections.observableArrayList();
+    private final ObservableList<Ingredient> ingredients = FXCollections.observableArrayList();
     private EntityManagerFactory entityManagerFactory;
 
     @Override
@@ -28,7 +28,7 @@ public class HSQLIngredientRepository implements IngredientRepository, Initializ
         Root<Ingredient> i = c.from(Ingredient.class);
 
         c.select(i);
-        List resultList = em.createQuery(c).getResultList();
+        List<Ingredient> resultList = em.createQuery(c).getResultList();
         ingredients.addAll(resultList);
         return ingredients;
     }
@@ -43,7 +43,7 @@ public class HSQLIngredientRepository implements IngredientRepository, Initializ
         Root<Ingredient> i = c.from(Ingredient.class);
         c.where(cb.like(cb.lower(i.get("name")), "%" + name.toLowerCase() + "%"));
 
-        List resultList = em.createQuery(c).getResultList();
+        List<Ingredient> resultList = em.createQuery(c).getResultList();
 
         ingredients.addAll(resultList);
     }
@@ -55,7 +55,7 @@ public class HSQLIngredientRepository implements IngredientRepository, Initializ
 
     @Override
     public void close() {
-        //entityManagerFactory.close();
+        entityManagerFactory.close();
     }
 
     @Override

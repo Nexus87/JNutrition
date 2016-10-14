@@ -27,9 +27,6 @@ class TestDatabase {
 		return ingredientsFile;
 	}
 
-	void Clean() {
-	}
-
 	Collection<Ingredient> getItems(){
 		return ingredients;
 	}

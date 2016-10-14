@@ -45,12 +45,7 @@ public class Ingredient {
         return carbs;
     }
 
-    private int id;
     private String name;
-
-    private void setId(int id) {
-        this.id = id;
-    }
 
     private void setName(String name) {
         this.name = name;

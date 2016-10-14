@@ -1,7 +1,6 @@
 package com.jnutrition;
 
 import com.jnutrition.model.Unit;
-import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
@@ -104,8 +103,4 @@ public class IntegerationTest {
 
         appRunner.assertDataDisplayedWithUnit(200, database.defaultUnit());
     }
-	@AfterTest
-	public void tearDown(){
-		database.Clean();
-	}
 }

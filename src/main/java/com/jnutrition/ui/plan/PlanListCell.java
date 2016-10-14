@@ -50,14 +50,6 @@ class PlanListCell extends ListCell<PlanItem> {
         );
 
         removeButton.setOnAction(event -> model.removeItem(getIndex()));
-        setOnMouseClicked(event ->{
-            if(event.getClickCount() != 2)
-                return;
-            listDoubleClickHandler();
-        });
         setGraphic(mainLayout);
-    }
-
-    private void listDoubleClickHandler() {
     }
 }

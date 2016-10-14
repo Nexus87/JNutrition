@@ -18,7 +18,7 @@ class ListViewMatcher extends BaseMatcher<Node>{
         return new ListViewMatcher(string.toString());
     }
 
-    private String searchString;
+    private final String searchString;
     private static final String SELECTOR_LIST_CELL = ".list-cell";
 
     private ListViewMatcher(String searchString){

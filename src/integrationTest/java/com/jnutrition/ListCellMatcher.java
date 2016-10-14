@@ -10,8 +10,8 @@ import org.hamcrest.Matcher;
 import org.testfx.api.FxAssert;
 import org.testfx.service.finder.NodeFinder;
 
-public class ListCellMatcher extends BaseMatcher<Node> {
-    private String searchString;
+class ListCellMatcher extends BaseMatcher<Node> {
+    private final String searchString;
 
     public static Matcher<Node> cellContainsText(String text){
         return new ListCellMatcher(text);
