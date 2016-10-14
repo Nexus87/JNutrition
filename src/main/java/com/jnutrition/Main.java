@@ -1,8 +1,6 @@
 package com.jnutrition;
 
-import com.jnutrition.backend.IngredientRepository;
 import com.jnutrition.backend.UnitRepository;
-import com.jnutrition.backend.XMLIngredientRepository;
 import com.jnutrition.backend.XMLUnitRepository;
 import com.jnutrition.ui.JNutritionController;
 import javafx.application.Application;
@@ -24,22 +22,6 @@ import java.util.List;
 public class Main extends Application {
 
     private static List<String> parameters;
-
-    @Bean
-    public IngredientRepository ingredientRepository() {
-        InputStream ingredients = null;
-
-        if (parameters.size() == 2) {
-            try {
-                ingredients = new FileInputStream(parameters.get(0));
-            } catch (FileNotFoundException e) {
-                e.printStackTrace();
-            }
-        } else {
-            ingredients = Main.class.getResourceAsStream("/IngredientDatabaseResources.xml");
-        }
-        return new XMLIngredientRepository(ingredients);
-    }
 
     @Bean
     public UnitRepository unitRepository() {

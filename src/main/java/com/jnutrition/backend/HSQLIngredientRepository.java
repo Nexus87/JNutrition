@@ -4,17 +4,22 @@ import com.jnutrition.model.Ingredient;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import org.hibernate.Criteria;
+import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
+import org.hibernate.criterion.MatchMode;
 import org.hibernate.criterion.Restrictions;
 import org.hibernate.service.ServiceRegistry;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Component;
 
+@Component
 public class HSQLIngredientRepository implements IngredientRepository, InitializingBean{
     private String cfgPath;
     private SessionFactory sessionFactory;
     private ObservableList<Ingredient> ingredients = FXCollections.observableArrayList();
+
     @Value(value = "${cfg.hibernate}")
     public void setCfgPath(String cfgPath) {
         this.cfgPath = cfgPath;
@@ -23,8 +28,12 @@ public class HSQLIngredientRepository implements IngredientRepository, Initializ
     @Override
     public ObservableList<Ingredient> getAllIngredients() {
         ingredients.clear();
-        Criteria criteria = sessionFactory.getCurrentSession().createCriteria(Ingredient.class);
+
+        Session session = sessionFactory.getCurrentSession();
+        session.beginTransaction();
+        Criteria criteria = session.createCriteria(Ingredient.class);
         ingredients.addAll(criteria.list());
+        session.getTransaction().commit();
 
         return ingredients;
     }
@@ -32,9 +41,13 @@ public class HSQLIngredientRepository implements IngredientRepository, Initializ
     @Override
     public void setNameFilter(String name) {
         ingredients.clear();
-        Criteria criteria = sessionFactory.getCurrentSession().createCriteria(Ingredient.class);
-        criteria.add(Restrictions.eq("name", "%" + name + "%"));
+
+        Session session = sessionFactory.getCurrentSession();
+        session.beginTransaction();
+        Criteria criteria = session.createCriteria(Ingredient.class);
+        criteria.add(Restrictions.like("name", name, MatchMode.ANYWHERE).ignoreCase());
         ingredients.addAll(criteria.list());
+        session.getTransaction().commit();
     }
 
     @Override
@@ -49,7 +62,8 @@ public class HSQLIngredientRepository implements IngredientRepository, Initializ
         try {
             // Create the SessionFactory from hibernate.cfg.xml
             org.hibernate.cfg.Configuration configuration = new org.hibernate.cfg.Configuration();
-            configuration.configure("hibernate-annotation.cfg.xml");
+            configuration.configure(cfgPath);
+            configuration.addAnnotatedClass(Ingredient.class);
             System.out.println("Hibernate Annotation Configuration loaded");
 
             ServiceRegistry serviceRegistry = new StandardServiceRegistryBuilder().applySettings(configuration.getProperties()).build();
@@ -62,5 +76,16 @@ public class HSQLIngredientRepository implements IngredientRepository, Initializ
             System.err.println("Initial SessionFactory creation failed." + ex);
             throw new ExceptionInInitializerError(ex);
         }
+        Ingredient water = new Ingredient("Water", 1.0, 1.0, 1.0, 0.0);
+        Ingredient egg = new Ingredient("Egg", 3.3, 2.2, 1.12, 3.0);
+        Ingredient apple = new Ingredient("Apple", 3.0, 2.0, 1.0, 0.0);
+
+        Session session = sessionFactory.getCurrentSession();
+        session.beginTransaction();
+        session.createQuery("DELETE FROM Ingredient").executeUpdate();
+        session.save(water);
+        session.save(egg);
+        session.save(apple);
+        session.getTransaction().commit();
     }
 }

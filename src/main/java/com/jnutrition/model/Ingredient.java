@@ -1,13 +1,13 @@
 package com.jnutrition.model;
 
-import javax.persistence.Column;
-import javax.persistence.Table;
-import javax.persistence.UniqueConstraint;
+import javax.persistence.*;
 import java.math.BigDecimal;
 
+@Entity
 @Table(name = "Ingredients", uniqueConstraints = { @UniqueConstraint(columnNames = "name")})
 public class Ingredient {
 
+    private Ingredient(){}
     public Ingredient(String name, double kcal, double protein, double carbs, double fat){
         this(name,
                 new BigDecimal(kcal),
@@ -27,6 +27,7 @@ public class Ingredient {
     public BigDecimal getFat() {
         return fat;
     }
+    @Id
     @Column(name = "name", unique = true)
     public String getName() {
         return name;
@@ -45,11 +46,36 @@ public class Ingredient {
     }
 
     private int id;
-    private final String name;
-    private final BigDecimal kcal;
-    private final BigDecimal protein;
-    private final BigDecimal carbs;
-    private final BigDecimal fat;
+    private String name;
+
+    private void setId(int id) {
+        this.id = id;
+    }
+
+    private void setName(String name) {
+        this.name = name;
+    }
+
+    private void setKcal(BigDecimal kcal) {
+        this.kcal = kcal;
+    }
+
+    private void setProtein(BigDecimal protein) {
+        this.protein = protein;
+    }
+
+    private void setCarbs(BigDecimal carbs) {
+        this.carbs = carbs;
+    }
+
+    private void setFat(BigDecimal fat) {
+        this.fat = fat;
+    }
+
+    private BigDecimal kcal;
+    private BigDecimal protein;
+    private BigDecimal carbs;
+    private BigDecimal fat;
 
     @Override
     public boolean equals(Object o) {
