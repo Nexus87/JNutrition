@@ -85,4 +85,9 @@ public class XMLIngredientRepository implements IngredientRepository{
 				.orElse(null);
 	}
 
+	@Override
+	public void close() {
+
+	}
+
 }

@@ -34,7 +34,7 @@ public class HSQLIngredientRepository implements IngredientRepository, Initializ
         Criteria criteria = session.createCriteria(Ingredient.class);
         ingredients.addAll(criteria.list());
         session.getTransaction().commit();
-
+        session.close();
         return ingredients;
     }
 
@@ -48,13 +48,24 @@ public class HSQLIngredientRepository implements IngredientRepository, Initializ
         criteria.add(Restrictions.like("name", name, MatchMode.ANYWHERE).ignoreCase());
         ingredients.addAll(criteria.list());
         session.getTransaction().commit();
+        session.close();
     }
 
     @Override
     public Object getIngredientByName(String name) {
+        Session session = sessionFactory.getCurrentSession();
+        session.beginTransaction();
         Criteria criteria = sessionFactory.getCurrentSession().createCriteria(Ingredient.class);
         criteria.add(Restrictions.eq("name", name));
-        return criteria.list().stream().findFirst().orElse(null);
+        Object result = criteria.list().stream().findFirst().orElse(null);
+        session.getTransaction().commit();
+        session.close();
+        return result;
+    }
+
+    @Override
+    public void close() {
+        sessionFactory.close();
     }
 
     @Override

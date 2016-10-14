@@ -1,5 +1,6 @@
 package com.jnutrition;
 
+import com.jnutrition.backend.IngredientRepository;
 import com.jnutrition.backend.UnitRepository;
 import com.jnutrition.backend.XMLUnitRepository;
 import com.jnutrition.ui.JNutritionController;
@@ -22,6 +23,7 @@ import java.util.List;
 public class Main extends Application {
 
     private static List<String> parameters;
+    private ApplicationContext context;
 
     @Bean
     public UnitRepository unitRepository() {
@@ -41,7 +43,7 @@ public class Main extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
 
-        ApplicationContext context = new AnnotationConfigApplicationContext(Main.class);
+        context = new AnnotationConfigApplicationContext(Main.class);
         JNutritionController root = context.getBean(JNutritionController.class);
 
         Scene scene = new Scene((Parent) root.getView());
@@ -53,5 +55,11 @@ public class Main extends Application {
     public static void main(String[] args) {
         parameters = Arrays.asList(args);
         launch(args);
+    }
+
+    @Override
+    public void stop() throws Exception {
+        IngredientRepository ingredientRepository = context.getBean(IngredientRepository.class);
+        ingredientRepository.close();
     }
 }
