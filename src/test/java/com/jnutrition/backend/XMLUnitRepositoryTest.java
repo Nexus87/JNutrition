@@ -34,10 +34,10 @@ public class XMLUnitRepositoryTest {
                 "</Unit>" +
             "</Units>";
 
-    private static final Unit appleUnit = new Unit("Unit", 50);
-    private static final Unit waterUnit = new Unit("Unit", 50);
-    private static final Unit waterLiter = new Unit("Liter", 100);
-    private static final Unit eggUnit = new Unit("Unit", 50);
+    private static final Unit appleUnit = new Unit("Unit", 50, null);
+    private static final Unit waterUnit = new Unit("Unit", 50, null);
+    private static final Unit waterLiter = new Unit("Liter", 100, null);
+    private static final Unit eggUnit = new Unit("Unit", 50, null);
 
     @Test
     public void getUnits_ListAlwaysContainsGram(){

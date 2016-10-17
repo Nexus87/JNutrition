@@ -31,7 +31,7 @@ public class XMLUnitRepository implements UnitRepository{
             public String ingredient;
 
             com.jnutrition.model.Unit toUnit(){
-                return new com.jnutrition.model.Unit(name, gram);
+                return new com.jnutrition.model.Unit(name, gram, null);
             }
         }
 

@@ -40,7 +40,7 @@ class TestDatabase {
 	}
 
     public Unit getUnitForIngredient(Ingredient ingredient) {
-        return new Unit("pound", 50);
+        return new Unit("pound", 50, null);
     }
 
 	public String getUnitDatabasePath() {

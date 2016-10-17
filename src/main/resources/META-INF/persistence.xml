@@ -11,6 +11,7 @@
         <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
 
         <class>com.jnutrition.model.Ingredient</class>
+        <class>com.jnutrition.model.Unit</class>
 
         <properties>
             <property name="javax.persistence.jdbc.driver" value ="org.hsqldb.jdbcDriver" />

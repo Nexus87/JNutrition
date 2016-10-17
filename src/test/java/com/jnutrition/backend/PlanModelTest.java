@@ -15,7 +15,7 @@ public class PlanModelTest {
     @DataProvider
     public Object[][] addIngredientTestData(){
         return new Object[][]{
-                {new Ingredient("Apple", 1, 2, 3, 4), 100, new Unit("g", 1.0)}
+                {new Ingredient("Apple", 1, 2, 3, 4), 100, new Unit("g", 1.0, null)}
         };
     }
 
@@ -58,7 +58,7 @@ public class PlanModelTest {
     @DataProvider
     public Object[][] unitDataTestData(){
         return new Object[][]{
-                { 1, 2, 3, 4, new Ingredient("Apple", 2, 4, 6, 8), new Unit("Unit", 50)}
+                { 1, 2, 3, 4, new Ingredient("Apple", 2, 4, 6, 8), new Unit("Unit", 50, null)}
         };
     }
 
@@ -80,7 +80,7 @@ public class PlanModelTest {
     @DataProvider
     public Object[][] removeItemTestData(){
         return new Object[][]{
-                { 0, new Ingredient("Apple", 2, 4, 6, 8), new Unit("Unit", 50)}
+                { 0, new Ingredient("Apple", 2, 4, 6, 8), new Unit("Unit", 50, null)}
         };
     }
 
@@ -96,7 +96,7 @@ public class PlanModelTest {
     @DataProvider
     public Object[][] removeItemMultipleTestData(){
         return new Object[][]{
-                { 0, 1, 2, 3, 4, new Ingredient("Apple", 2, 4, 6, 8), new Ingredient("Orange", 1, 2, 3, 4), new Unit("Unit", 100)}
+                { 0, 1, 2, 3, 4, new Ingredient("Apple", 2, 4, 6, 8), new Ingredient("Orange", 1, 2, 3, 4), new Unit("Unit", 100, null)}
         };
     }
 

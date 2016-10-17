@@ -32,7 +32,7 @@ public class PlanItemTest {
     public Object[][] amountAndUnitTestData(){
         return new Object[][]{
                 {2, 4, 6, 8, new Ingredient("Apple", 1, 2, 3, 4), 200, Unit.GRAM},
-                {2, 4, 6, 8, new Ingredient("Apple", 1, 2, 3, 4), 100, new Unit("Unit", 2)}
+                {2, 4, 6, 8, new Ingredient("Apple", 1, 2, 3, 4), 100, new Unit("Unit", 2, null)}
         };
     }
 

@@ -1,6 +1,5 @@
 package com.jnutrition;
 
-import com.jnutrition.backend.IngredientRepository;
 import com.jnutrition.backend.UnitRepository;
 import com.jnutrition.backend.XMLUnitRepository;
 import com.jnutrition.ui.JNutritionController;
@@ -9,8 +8,12 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import org.springframework.context.ApplicationContext;
-import org.springframework.context.annotation.*;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.PropertySource;
 
+import javax.persistence.EntityManagerFactory;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
@@ -25,7 +28,7 @@ public class Main extends Application {
     private static List<String> parameters;
     private ApplicationContext context;
 
-    @Bean
+
     public UnitRepository unitRepository() {
         InputStream units = null;
 
@@ -59,7 +62,7 @@ public class Main extends Application {
 
     @Override
     public void stop() throws Exception {
-        IngredientRepository ingredientRepository = context.getBean(IngredientRepository.class);
-        ingredientRepository.close();
+        EntityManagerFactory entityManagerFactory = context.getBean(EntityManagerFactory.class);
+        entityManagerFactory.close();
     }
 }
