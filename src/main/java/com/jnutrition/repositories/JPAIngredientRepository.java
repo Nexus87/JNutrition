@@ -1,4 +1,4 @@
-package com.jnutrition.backend;
+package com.jnutrition.repositories;
 
 import com.jnutrition.DAO.IngredientDAO;
 import com.jnutrition.model.Ingredient;
@@ -8,7 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Component
-public class HSQLIngredientRepository implements IngredientRepository{
+public class JPAIngredientRepository implements IngredientRepository{
     private final ObservableList<Ingredient> ingredients = FXCollections.observableArrayList();
     @Autowired
     private IngredientDAO ingredientDAO;

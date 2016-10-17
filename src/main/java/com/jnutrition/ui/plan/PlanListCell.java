@@ -1,7 +1,7 @@
 package com.jnutrition.ui.plan;
 
-import com.jnutrition.backend.PlanItem;
-import com.jnutrition.backend.PlanModel;
+import com.jnutrition.model.PlanItem;
+import com.jnutrition.model.PlanModel;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;

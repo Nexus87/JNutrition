@@ -1,9 +1,9 @@
 package com.jnutrition.ui;
 
 
-import com.jnutrition.backend.UnitRepository;
 import com.jnutrition.model.Ingredient;
 import com.jnutrition.model.Unit;
+import com.jnutrition.repositories.UnitRepository;
 import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
 import javafx.util.Pair;

@@ -1,8 +1,6 @@
-package com.jnutrition.backend;
+package com.jnutrition.model;
 
 
-import com.jnutrition.model.Ingredient;
-import com.jnutrition.model.Unit;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 

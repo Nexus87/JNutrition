@@ -1,4 +1,4 @@
-package com.jnutrition.backend;
+package com.jnutrition.repositories;
 
 
 import com.jnutrition.model.Ingredient;

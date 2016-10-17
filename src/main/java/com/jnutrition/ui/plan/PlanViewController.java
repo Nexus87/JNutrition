@@ -1,7 +1,7 @@
 package com.jnutrition.ui.plan;
 
-import com.jnutrition.backend.PlanItem;
-import com.jnutrition.backend.PlanModel;
+import com.jnutrition.model.PlanItem;
+import com.jnutrition.model.PlanModel;
 import com.jnutrition.ui.FXMLController;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;

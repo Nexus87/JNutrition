@@ -1,7 +1,4 @@
-package com.jnutrition.backend;
-
-import com.jnutrition.model.Ingredient;
-import com.jnutrition.model.Unit;
+package com.jnutrition.model;
 
 import java.math.BigDecimal;
 
@@ -26,7 +23,7 @@ public class PlanItem {
         return unit;
     }
 
-    PlanItem(Ingredient ingredient, double amount, Unit unit) {
+    public PlanItem(Ingredient ingredient, double amount, Unit unit) {
 
         this.ingredient = ingredient;
         this.amount = amount;
