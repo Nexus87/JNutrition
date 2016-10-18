@@ -14,7 +14,7 @@ import java.util.List;
 import java.util.function.BiFunction;
 
 @Component
-public class DataBrocker {
+public class DataBroker {
     @Autowired
     private EntityManagerFactory entityManagerFactory;
 

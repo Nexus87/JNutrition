@@ -5,16 +5,12 @@ import com.jnutrition.model.Ingredient;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import javax.persistence.EntityManagerFactory;
 import java.util.List;
 
 @Component
 public class JPAIngredientDAO implements IngredientDAO {
     @Autowired
-    private EntityManagerFactory entityManagerFactory;
-
-    @Autowired
-    private DataBrocker dataBrocker;
+    private DataBroker dataBroker;
 
     @Override
     public void save(List<Ingredient> ingredientList) {
@@ -23,11 +19,11 @@ public class JPAIngredientDAO implements IngredientDAO {
 
     @Override
     public List<Ingredient> getAllIngredients() {
-        return dataBrocker.selectAll(Ingredient.class);
+        return dataBroker.selectAll(Ingredient.class);
     }
 
     @Override
     public List<Ingredient> getIngredientsWihtNameLike(String filter) {
-        return dataBrocker.selectWherePropertyLike(Ingredient.class, "name", "%" + filter + "%");
+        return dataBroker.selectWherePropertyLike(Ingredient.class, "name", "%" + filter + "%");
     }
 }
