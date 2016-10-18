@@ -23,11 +23,13 @@ public class Ingredient {
         this.fat = fat;
     }
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private  int id;
     @Column(name = "fat")
     public BigDecimal getFat() {
         return fat;
     }
-    @Id
     @Column(name = "name", unique = true)
     public String getName() {
         return name;
@@ -100,5 +102,13 @@ public class Ingredient {
     @Override
     public String toString() {
         return "[" + name + ", " + kcal + ", " + protein + ", " + carbs + ", " + fat + "]";
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 }

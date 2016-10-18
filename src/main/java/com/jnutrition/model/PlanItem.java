@@ -1,54 +1,61 @@
 package com.jnutrition.model;
 
-import java.math.BigDecimal;
+import javax.persistence.*;
 
+@Entity
+@Table(name = "PlanItems")
 public class PlanItem {
-    private final Ingredient ingredient;
-    private final double amount;
-    private final Unit unit;
-    private final BigDecimal kcal;
-    private final BigDecimal protein;
-    private final BigDecimal carbs;
-    private final BigDecimal fat;
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private int id;
+    @ManyToOne
+    @JoinColumn(name = "ingredient", foreignKey = @ForeignKey(name = "PLANITEM_INGREDIENT_FK"))
+    private Ingredient ingredient;
+    @Column(name = "amount")
+    private double amount;
+    @ManyToOne
+    @JoinColumn(name = "unit", foreignKey = @ForeignKey(name = "PLANITEM_UNIT_FK"))
+    private Unit unit;
 
-    public Ingredient getIngredient() {
-        return ingredient;
+    public PlanItem() {
     }
-
-    public double getAmount() {
-        return amount;
-    }
-
-    public Unit getUnit() {
-        return unit;
-    }
-
     public PlanItem(Ingredient ingredient, double amount, Unit unit) {
 
         this.ingredient = ingredient;
         this.amount = amount;
         this.unit = unit;
 
-        BigDecimal factor = new BigDecimal(amount * unit.inGram() / 100);
-        kcal = ingredient.getKcal().multiply(factor).setScale(2, BigDecimal.ROUND_HALF_UP);
-        protein = ingredient.getProtein().multiply(factor).setScale(2, BigDecimal.ROUND_HALF_UP);
-        carbs = ingredient.getCarbs().multiply(factor).setScale(2, BigDecimal.ROUND_HALF_UP);
-        fat = ingredient.getFat().multiply(factor).setScale(2, BigDecimal.ROUND_HALF_UP);
     }
 
-    public BigDecimal getFat() {
-        return fat;
+    public Ingredient getIngredient() {
+        return ingredient;
     }
-    public String getName() {
-        return ingredient.getName();
+
+    public void setIngredient(Ingredient ingredient) {
+        this.ingredient = ingredient;
     }
-    public BigDecimal getKcal() {
-        return kcal;
+
+    public double getAmount() {
+        return amount;
     }
-    public BigDecimal getProtein() {
-        return protein;
+
+    public void setAmount(double amount) {
+        this.amount = amount;
     }
-    public BigDecimal getCarbs() {
-        return carbs;
+
+    public Unit getUnit() {
+        return unit;
+    }
+
+    public void setUnit(Unit unit) {
+        this.unit = unit;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 }

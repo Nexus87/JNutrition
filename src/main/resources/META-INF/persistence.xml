@@ -12,19 +12,23 @@
 
         <class>com.jnutrition.model.Ingredient</class>
         <class>com.jnutrition.model.Unit</class>
-
+        <class>com.jnutrition.model.Plan</class>
+        <class>com.jnutrition.model.PlanItem</class>
         <properties>
-            <property name="javax.persistence.jdbc.driver" value ="org.hsqldb.jdbcDriver" />
-            <property name="javax.persistence.jdbc.url" value="jdbc:hsqldb:data/jnutrition"/>
-            <property name="javax.persistence.jdbc.user" value ="sa"/>
-            <property name="javax.persistence.jdbc.password" value =""/>
-
+            <property name="javax.persistence.jdbc.driver"
+                      value ="org.hsqldb.jdbcDriver" />
+            <property name="javax.persistence.jdbc.url"
+                      value="jdbc:hsqldb:data/jnutrition"/>
+            <property name="javax.persistence.jdbc.user"
+                      value ="sa"/>
+            <property name="javax.persistence.jdbc.password"
+                      value =""/>
+            <property name="javax.persistence.schema-generation.database.action"
+                      value="drop-and-create"/>
             <!-- SQL dialect -->
             <property name="hibernate.dialect" value ="org.hibernate.dialect.HSQLDialect"/>
             <!-- Echo all executed SQL to stdout -->
             <property name="hibernate.show_sql" value="true"/>
-
-            <property name="hibernate.hbm2ddl.auto" value="update"/>
         </properties>
 
     </persistence-unit>

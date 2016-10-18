@@ -1,6 +1,7 @@
 package com.jnutrition.DAO.jpa;
 
 import com.jnutrition.model.Ingredient;
+import com.jnutrition.model.Plan;
 import com.jnutrition.model.Unit;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -31,8 +32,6 @@ class HibernateUtils{
         Ingredient apple = new Ingredient("Apple", 3.0, 2.0, 1.0, 0.0);
 
         entityManager.getTransaction().begin();
-        entityManager.createQuery("DELETE FROM Unit u").executeUpdate();
-        entityManager.createQuery("DELETE FROM Ingredient i").executeUpdate();
         entityManager.persist(water);
         entityManager.persist(egg);
         entityManager.persist(apple);
@@ -47,6 +46,12 @@ class HibernateUtils{
         entityManager.persist(waterPound);
         entityManager.persist(eggPound);
         entityManager.persist(waterLiter);
+        entityManager.getTransaction().commit();
+
+        Plan plan = new Plan();
+        plan.setName("Plan");
+        entityManager.getTransaction().begin();
+        entityManager.persist(plan);
         entityManager.getTransaction().commit();
         entityManager.close();
     }

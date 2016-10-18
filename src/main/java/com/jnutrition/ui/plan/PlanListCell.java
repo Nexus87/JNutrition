@@ -1,6 +1,7 @@
 package com.jnutrition.ui.plan;
 
 import com.jnutrition.model.PlanItem;
+import com.jnutrition.model.PlanItemUtils;
 import com.jnutrition.model.PlanModel;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -41,12 +42,12 @@ class PlanListCell extends ListCell<PlanItem> {
             return;
         }
 
-        itemLabel.setText("" + item.getAmount() + item.getUnit() + " " + item.getName());
+        itemLabel.setText("" + item.getAmount() + item.getUnit() + " " + item.getIngredient().getName());
         detailLabel.setText(
-                "KCal: " + item.getKcal() +
-                " Protein: " + item.getProtein() +
-                " Carbs: " + item.getCarbs() +
-                " Fat: " + item.getFat()
+                "KCal: " + PlanItemUtils.calculateKCal(item) +
+                " Protein: " + PlanItemUtils.calculateProtein(item) +
+                " Carbs: " + PlanItemUtils.calculateCarbs(item) +
+                " Fat: " + PlanItemUtils.calculateFat(item)
         );
 
         removeButton.setOnAction(event -> model.removeItem(getIndex()));

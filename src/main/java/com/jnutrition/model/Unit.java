@@ -8,7 +8,7 @@ public class Unit {
     public static final Unit GRAM = new Unit("g", 1, null);
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
     @Column(name = "unit_name")
     private String name;
@@ -24,7 +24,7 @@ public class Unit {
     }
 
     @ManyToOne
-    @JoinColumn(name = "ingredient_name", foreignKey = @ForeignKey(name = "UNIT_INGREDIENT_FK"))
+    @JoinColumn(name = "ingredient", foreignKey = @ForeignKey(name = "UNIT_INGREDIENT_FK"))
     private Ingredient ingredient;
 
     private Unit(){}

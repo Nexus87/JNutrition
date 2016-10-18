@@ -1,17 +1,24 @@
 package com.jnutrition.model;
 
+import com.jnutrition.DAO.PlanDAO;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import org.springframework.beans.factory.InitializingBean;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import java.util.Iterator;
 
 @Component
-public class PlanModel {
+public class PlanModel implements InitializingBean{
+    @Autowired
+    private PlanDAO planDAO;
     private final ObservableList<PlanItem> ingredients = FXCollections.observableArrayList();
     private final ObservableList<PlanItem> readOnly = FXCollections.unmodifiableObservableList(ingredients);
+    private Plan plan;
 
     public SimpleObjectProperty<BigDecimal> kcalProperty() {
         return kcal;
@@ -36,17 +43,36 @@ public class PlanModel {
 
     public void addIngredient(double amount, Unit unit, Ingredient ingredient) {
         PlanItem item = new PlanItem(ingredient, amount, unit);
-        BigDecimal currentKcal = getKcal();
-        BigDecimal currentProtein = getProtein();
-        BigDecimal currentCarbs = getCarbs();
-        BigDecimal currentFat = getFat();
-
-        kcal.set(currentKcal.add(item.getKcal().setScale(2, RoundingMode.HALF_UP)));
-        protein.set(currentProtein.add(item.getProtein()).setScale(2, RoundingMode.HALF_UP));
-        carbs.set(currentCarbs.add(item.getCarbs()).setScale(2, RoundingMode.HALF_UP));
-        fat.set(currentFat.add(item.getFat()).setScale(2, RoundingMode.HALF_UP));
-        ingredients.add(item);
+        plan.getPlanItems().add(item);
+        updateData();
     }
+
+    private void updateData(){
+        BigDecimal currentKcal = BigDecimal.ZERO;
+        BigDecimal currentProtein = BigDecimal.ZERO;
+        BigDecimal currentCarbs = BigDecimal.ZERO;
+        BigDecimal currentFat = BigDecimal.ZERO;
+
+        for (PlanItem item :
+                plan.getPlanItems()) {
+
+
+            currentKcal = currentKcal.add(PlanItemUtils.calculateKCal(item)).setScale(2, RoundingMode.HALF_UP);
+            currentProtein = currentProtein.add(PlanItemUtils.calculateProtein(item)).setScale(2, RoundingMode.HALF_UP);
+            currentCarbs = currentCarbs.add(PlanItemUtils.calculateCarbs(item)).setScale(2, RoundingMode.HALF_UP);
+            currentFat = currentFat.add(PlanItemUtils.calculateFat(item)).setScale(2, RoundingMode.HALF_UP);
+        }
+
+        kcal.set(currentKcal);
+        protein.set(currentProtein);
+        carbs.set(currentCarbs);
+        fat.set(currentFat);
+        ingredients.clear();
+        ingredients.addAll(plan.getPlanItems());
+        planDAO.updatePlan(plan);
+    }
+
+
 
     public ObservableList<PlanItem> getReadOnlyList() {
         return readOnly;
@@ -71,18 +97,20 @@ public class PlanModel {
     public void removeItem(int index) {
         if(ingredients.size() <= index)
             return;
-        PlanItem item = ingredients.get(index);
 
-        BigDecimal currentKcal = getKcal();
-        BigDecimal currentProtein = getProtein();
-        BigDecimal currentCarbs = getCarbs();
-        BigDecimal currentFat = getFat();
+        PlanItem item;
+        Iterator<PlanItem> iterator = plan.getPlanItems().iterator();
+        for(int i = 0; i < index; i++)
+            iterator.next();
 
-        kcal.set(currentKcal.subtract(item.getKcal().setScale(2, RoundingMode.HALF_UP)));
-        protein.set(currentProtein.subtract(item.getProtein()).setScale(2, RoundingMode.HALF_UP));
-        carbs.set(currentCarbs.subtract(item.getCarbs()).setScale(2, RoundingMode.HALF_UP));
-        fat.set(currentFat.subtract(item.getFat()).setScale(2, RoundingMode.HALF_UP));
+        item = iterator.next();
 
-        ingredients.remove(item);
+        plan.getPlanItems().remove(item);
+        updateData();
+    }
+
+    @Override
+    public void afterPropertiesSet() throws Exception {
+        plan = planDAO.loadPlan("Plan");
     }
 }
