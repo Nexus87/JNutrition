@@ -1,14 +1,15 @@
-package com.jnutrition.repositories;
+package com.jnutrition.repositories.jpa;
 
 import com.jnutrition.DAO.IngredientDAO;
 import com.jnutrition.model.Ingredient;
+import com.jnutrition.repositories.IngredientRepository;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Component
-public class JPAIngredientRepository implements IngredientRepository{
+public class JPAIngredientRepository implements IngredientRepository {
     private final ObservableList<Ingredient> ingredients = FXCollections.observableArrayList();
     @Autowired
     private IngredientDAO ingredientDAO;

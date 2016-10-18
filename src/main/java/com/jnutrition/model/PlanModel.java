@@ -1,6 +1,6 @@
 package com.jnutrition.model;
 
-import com.jnutrition.DAO.PlanDAO;
+import com.jnutrition.repositories.PlanRepository;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -9,13 +9,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.math.BigDecimal;
-import java.math.RoundingMode;
 import java.util.Iterator;
+import java.util.function.Function;
 
 @Component
 public class PlanModel implements InitializingBean{
     @Autowired
-    private PlanDAO planDAO;
+    private PlanRepository planRepository;
+
     private final ObservableList<PlanItem> ingredients = FXCollections.observableArrayList();
     private final ObservableList<PlanItem> readOnly = FXCollections.unmodifiableObservableList(ingredients);
     private Plan plan;
@@ -23,15 +24,12 @@ public class PlanModel implements InitializingBean{
     public SimpleObjectProperty<BigDecimal> kcalProperty() {
         return kcal;
     }
-
     public SimpleObjectProperty<BigDecimal> proteinProperty() {
         return protein;
     }
-
     public SimpleObjectProperty<BigDecimal> carbsProperty() {
         return carbs;
     }
-
     public SimpleObjectProperty<BigDecimal> fatProperty() {
         return fat;
     }
@@ -48,30 +46,22 @@ public class PlanModel implements InitializingBean{
     }
 
     private void updateData(){
-        BigDecimal currentKcal = BigDecimal.ZERO;
-        BigDecimal currentProtein = BigDecimal.ZERO;
-        BigDecimal currentCarbs = BigDecimal.ZERO;
-        BigDecimal currentFat = BigDecimal.ZERO;
+        kcal.set(sum(plan, PlanItemUtils::calculateKCal));
+        carbs.set(sum(plan, PlanItemUtils::calculateCarbs));
+        fat.set(sum(plan, PlanItemUtils::calculateFat));
+        protein.set(sum(plan, PlanItemUtils::calculateProtein));
 
-        for (PlanItem item :
-                plan.getPlanItems()) {
-
-
-            currentKcal = currentKcal.add(PlanItemUtils.calculateKCal(item)).setScale(2, RoundingMode.HALF_UP);
-            currentProtein = currentProtein.add(PlanItemUtils.calculateProtein(item)).setScale(2, RoundingMode.HALF_UP);
-            currentCarbs = currentCarbs.add(PlanItemUtils.calculateCarbs(item)).setScale(2, RoundingMode.HALF_UP);
-            currentFat = currentFat.add(PlanItemUtils.calculateFat(item)).setScale(2, RoundingMode.HALF_UP);
-        }
-
-        kcal.set(currentKcal);
-        protein.set(currentProtein);
-        carbs.set(currentCarbs);
-        fat.set(currentFat);
         ingredients.clear();
         ingredients.addAll(plan.getPlanItems());
-        planDAO.updatePlan(plan);
+        planRepository.savePlan(plan);
     }
 
+    private BigDecimal sum(Plan plan, Function<PlanItem, BigDecimal> mapper) {
+        return plan.getPlanItems().stream()
+                .map(mapper)
+                .reduce(BigDecimal.ZERO, (a, b) -> a.add(b))
+                .setScale(2, BigDecimal.ROUND_HALF_UP);
+    }
 
 
     public ObservableList<PlanItem> getReadOnlyList() {
@@ -111,6 +101,6 @@ public class PlanModel implements InitializingBean{
 
     @Override
     public void afterPropertiesSet() throws Exception {
-        plan = planDAO.loadPlan("Plan");
+        plan = planRepository.getPlanByName("Plan");
     }
 }

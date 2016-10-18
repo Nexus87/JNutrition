@@ -2,6 +2,8 @@ package com.jnutrition.model;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "Ingredients", uniqueConstraints = { @UniqueConstraint(columnNames = "name")})
@@ -15,12 +17,14 @@ public class Ingredient {
                 new BigDecimal(carbs),
                 new BigDecimal(fat));
     }
+
     public Ingredient(String name, BigDecimal kcal, BigDecimal protein, BigDecimal carbs, BigDecimal fat){
         this.name = name;
         this.kcal = kcal;
         this.protein = protein;
         this.carbs = carbs;
         this.fat = fat;
+        units.add(Unit.GRAM);
     }
 
     @Id
@@ -46,6 +50,8 @@ public class Ingredient {
     public BigDecimal getCarbs() {
         return carbs;
     }
+    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
+    private List<Unit> units = new ArrayList<>();
 
     private String name;
 
@@ -110,5 +116,9 @@ public class Ingredient {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public List<Unit> getUnits() {
+        return units;
     }
 }

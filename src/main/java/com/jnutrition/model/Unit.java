@@ -15,23 +15,10 @@ public class Unit {
     @Column(name = "factor")
     private double convertFactor;
 
-    private Ingredient getIngredient() {
-        return ingredient;
-    }
-
-    private void setIngredient(Ingredient ingredient) {
-        this.ingredient = ingredient;
-    }
-
-    @ManyToOne
-    @JoinColumn(name = "ingredient", foreignKey = @ForeignKey(name = "UNIT_INGREDIENT_FK"))
-    private Ingredient ingredient;
-
     private Unit(){}
     public Unit(String name, double convertFactor, Ingredient ingredient) {
         this.name = name;
         this.convertFactor = convertFactor;
-        this.ingredient = ingredient;
     }
 
     public int getId() {
