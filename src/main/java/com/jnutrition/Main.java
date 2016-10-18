@@ -12,15 +12,12 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 
 import javax.persistence.EntityManagerFactory;
-import java.util.Arrays;
-import java.util.List;
 
 @ComponentScan(basePackages = "com.jnutrition")
 @PropertySource(value = "classpath:/com/jnutrition/application.properties")
 @Configuration
 public class Main extends Application {
 
-    private static List<String> parameters;
     private ApplicationContext context;
 
     @Override
@@ -36,7 +33,6 @@ public class Main extends Application {
     }
 
     public static void main(String[] args) {
-        parameters = Arrays.asList(args);
         launch(args);
     }
 

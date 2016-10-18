@@ -5,7 +5,7 @@ import javax.persistence.*;
 @Entity
 @Table(name = "Units")
 public class Unit {
-    public static final Unit GRAM = new Unit("g", 1, null);
+    public static final Unit GRAM = new Unit("g", 1);
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -16,7 +16,7 @@ public class Unit {
     private double convertFactor;
 
     private Unit(){}
-    public Unit(String name, double convertFactor, Ingredient ingredient) {
+    public Unit(String name, double convertFactor) {
         this.name = name;
         this.convertFactor = convertFactor;
     }

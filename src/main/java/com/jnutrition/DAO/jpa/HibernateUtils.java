@@ -37,10 +37,10 @@ class HibernateUtils{
         entityManager.persist(apple);
         entityManager.getTransaction().commit();
 
-        Unit applePound = new Unit("Pound", 50, apple);
-        Unit waterPound = new Unit("Pound", 50, water);
-        Unit eggPound = new Unit("Pound", 50, egg);
-        Unit waterLiter = new Unit("Liter", 1, water);
+        Unit applePound = new Unit("Pound", 50);
+        Unit waterPound = new Unit("Pound", 50);
+        Unit eggPound = new Unit("Pound", 50);
+        Unit waterLiter = new Unit("Liter", 1);
         entityManager.getTransaction().begin();
         entityManager.persist(applePound);
         entityManager.persist(waterPound);
