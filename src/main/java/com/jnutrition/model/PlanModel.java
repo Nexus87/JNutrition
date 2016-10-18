@@ -102,5 +102,6 @@ public class PlanModel implements InitializingBean{
     @Override
     public void afterPropertiesSet() throws Exception {
         plan = planRepository.getPlanByName("Plan");
+        updateData();
     }
 }

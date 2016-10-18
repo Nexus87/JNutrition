@@ -24,7 +24,7 @@
             <property name="javax.persistence.jdbc.password"
                       value =""/>
             <property name="javax.persistence.schema-generation.database.action"
-                      value="drop-and-create"/>
+                      value="create"/>
             <!-- SQL dialect -->
             <property name="hibernate.dialect" value ="org.hibernate.dialect.HSQLDialect"/>
             <!-- Echo all executed SQL to stdout -->

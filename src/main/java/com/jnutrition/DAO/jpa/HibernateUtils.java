@@ -27,32 +27,35 @@ class HibernateUtils{
 
         EntityManager entityManager = entityManagerFactory.createEntityManager();
 
-        Ingredient water = new Ingredient("Water", 1.0, 1.0, 1.0, 0.0);
-        Ingredient egg = new Ingredient("Egg", 3.3, 2.2, 1.12, 3.0);
-        Ingredient apple = new Ingredient("Apple", 3.0, 2.0, 1.0, 0.0);
+        try {
+            Ingredient water = new Ingredient("Water", 1.0, 1.0, 1.0, 0.0);
+            Ingredient egg = new Ingredient("Egg", 3.3, 2.2, 1.12, 3.0);
+            Ingredient apple = new Ingredient("Apple", 3.0, 2.0, 1.0, 0.0);
 
-        entityManager.getTransaction().begin();
-        entityManager.persist(water);
-        entityManager.persist(egg);
-        entityManager.persist(apple);
-        entityManager.getTransaction().commit();
+            Unit applePound = new Unit("Pound", 50);
+            Unit waterPound = new Unit("Pound", 50);
+            Unit eggPound = new Unit("Pound", 50);
+            Unit waterLiter = new Unit("Liter", 1);
 
-        Unit applePound = new Unit("Pound", 50);
-        Unit waterPound = new Unit("Pound", 50);
-        Unit eggPound = new Unit("Pound", 50);
-        Unit waterLiter = new Unit("Liter", 1);
-        entityManager.getTransaction().begin();
-        entityManager.persist(applePound);
-        entityManager.persist(waterPound);
-        entityManager.persist(eggPound);
-        entityManager.persist(waterLiter);
-        entityManager.getTransaction().commit();
+            apple.getUnits().add(applePound);
+            water.getUnits().add(waterPound);
+            water.getUnits().add(waterLiter);
+            egg.getUnits().add(eggPound);
 
-        Plan plan = new Plan();
-        plan.setName("Plan");
-        entityManager.getTransaction().begin();
-        entityManager.persist(plan);
-        entityManager.getTransaction().commit();
-        entityManager.close();
+            entityManager.getTransaction().begin();
+            entityManager.persist(water);
+            entityManager.persist(egg);
+            entityManager.persist(apple);
+            entityManager.getTransaction().commit();
+
+            Plan plan = new Plan();
+            plan.setName("Plan");
+            entityManager.getTransaction().begin();
+            entityManager.persist(plan);
+            entityManager.getTransaction().commit();
+            entityManager.close();
+        }catch (Exception e) {
+            //Will throw an exception if the table was already filled.
+        }
     }
 }
