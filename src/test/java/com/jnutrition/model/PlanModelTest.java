@@ -1,5 +1,6 @@
 package com.jnutrition.model;
 
+import com.jnutrition.repositories.PlanRepository;
 import javafx.collections.ObservableList;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
@@ -118,6 +119,17 @@ public class PlanModelTest {
         assertEquals(model.getFat().doubleValue(), expectedFat, 1e-12);
     }
     private PlanModel createModel() {
-        return new PlanModel();
+        PlanRepository planRepository = new PlanRepository() {
+            @Override
+            public Plan getPlanByName(String name) {
+                return null;
+            }
+
+            @Override
+            public void savePlan(Plan plan) {
+
+            }
+        };
+        return new PlanModel(new Plan(), planRepository);
     }
 }

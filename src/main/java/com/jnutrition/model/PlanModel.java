@@ -17,6 +17,10 @@ public class PlanModel implements InitializingBean{
     @Autowired
     private PlanRepository planRepository;
 
+    PlanModel(Plan plan, PlanRepository planRepository){
+        this.plan = plan;
+        this.planRepository = planRepository;
+    }
     private final ObservableList<PlanItem> ingredients = FXCollections.observableArrayList();
     private final ObservableList<PlanItem> readOnly = FXCollections.unmodifiableObservableList(ingredients);
     private Plan plan;
