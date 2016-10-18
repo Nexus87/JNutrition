@@ -14,34 +14,36 @@ import java.util.function.Function;
 
 @Component
 public class PlanModel implements InitializingBean{
-    @Autowired
-    private PlanRepository planRepository;
-
-    PlanModel(Plan plan, PlanRepository planRepository){
-        this.plan = plan;
-        this.planRepository = planRepository;
-    }
     private final ObservableList<PlanItem> ingredients = FXCollections.observableArrayList();
     private final ObservableList<PlanItem> readOnly = FXCollections.unmodifiableObservableList(ingredients);
-    private Plan plan;
-
-    public SimpleObjectProperty<BigDecimal> kcalProperty() {
-        return kcal;
-    }
-    public SimpleObjectProperty<BigDecimal> proteinProperty() {
-        return protein;
-    }
-    public SimpleObjectProperty<BigDecimal> carbsProperty() {
-        return carbs;
-    }
-    public SimpleObjectProperty<BigDecimal> fatProperty() {
-        return fat;
-    }
-
     private final SimpleObjectProperty<BigDecimal> kcal = new SimpleObjectProperty<>(new BigDecimal(0));
     private final SimpleObjectProperty<BigDecimal> protein = new SimpleObjectProperty<>(new BigDecimal(0));
     private final SimpleObjectProperty<BigDecimal> carbs = new SimpleObjectProperty<>(new BigDecimal(0));
     private final SimpleObjectProperty<BigDecimal> fat = new SimpleObjectProperty<>(new BigDecimal(0));
+    @Autowired
+    private PlanRepository planRepository;
+    private Plan plan;
+    public PlanModel(){}
+    PlanModel(Plan plan, PlanRepository planRepository){
+        this.plan = plan;
+        this.planRepository = planRepository;
+    }
+
+    public SimpleObjectProperty<BigDecimal> kcalProperty() {
+        return kcal;
+    }
+
+    public SimpleObjectProperty<BigDecimal> proteinProperty() {
+        return protein;
+    }
+
+    public SimpleObjectProperty<BigDecimal> carbsProperty() {
+        return carbs;
+    }
+
+    public SimpleObjectProperty<BigDecimal> fatProperty() {
+        return fat;
+    }
 
     public void addIngredient(double amount, Unit unit, Ingredient ingredient) {
         PlanItem item = new PlanItem(ingredient, amount, unit);
