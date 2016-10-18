@@ -56,7 +56,7 @@ public class DataBroker {
         return result;
     }
 
-    public <T> TypedQuery<T> buildQuery(EntityManager em, Class<T> c, BiFunction<CriteriaBuilder, Root<T>, Predicate> filter){
+    private <T> TypedQuery<T> buildQuery(EntityManager em, Class<T> c, BiFunction<CriteriaBuilder, Root<T>, Predicate> filter){
         CriteriaBuilder cb = em.getCriteriaBuilder();
         CriteriaQuery<T> criteriaQuery = cb.createQuery(c);
         Root<T> i = criteriaQuery.from(c);

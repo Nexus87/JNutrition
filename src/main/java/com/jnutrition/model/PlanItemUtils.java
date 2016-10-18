@@ -21,7 +21,7 @@ public class PlanItemUtils {
         return item.getIngredient().getKcal().multiply(amountFactor(item)).setScale(2, RoundingMode.HALF_UP);
     }
 
-    protected static BigDecimal amountFactor(PlanItem item) {
+    private static BigDecimal amountFactor(PlanItem item) {
         return new BigDecimal( (item.getAmount()/100d) * item.getUnit().inGram() );
     }
 }

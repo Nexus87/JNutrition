@@ -30,7 +30,6 @@ public class JPAPlanDAO implements PlanDAO{
 
     @Override
     public List<String> getAllPlanNames() {
-        List<String> result = dataBroker.selectAll(Plan.class).stream().map(Plan::getName).collect(Collectors.toList());
-        return result;
+        return dataBroker.selectAll(Plan.class).stream().map(Plan::getName).collect(Collectors.toList());
     }
 }
